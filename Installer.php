@@ -17,9 +17,7 @@ class AssociationMc_Installer {
                 minecraft_uuid BINARY(16) NOT NULL,
                 last_username VARCHAR(16) NOT NULL,
                 FOREIGN KEY (xenforo_id) REFERENCES xf_user(user_id)
-            );
-            ALTER TABLE xf_association_mc ADD CONSTRAINT unique_xenforo_id UNIQUE (xenforo_id);
-            ALTER TABLE xf_association_mc ADD CONSTRAINT unique_minecraft_uuid UNIQUE (minecraft_uuid);',
+            );',
         'down' => 'DROP TABLE IF EXISTS xf_association_mc'
     ];
 
