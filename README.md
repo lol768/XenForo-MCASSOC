@@ -1,4 +1,6 @@
-XenForo-MCASSOC
-===============
+XenForo Minecraft Association Plugin
+====================================
 
-Minecraft associatino addon for XenForo
+Still in early development. Will use lukegb's McAssoc service.
+
+
