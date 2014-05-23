@@ -1,7 +1,7 @@
 XenForo Minecraft Association Addon
 ====================================
 
-Initial release is out. Uses the awesome MCAssoc service by lukegb. Screenshots:
+Initial release is out. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) service by lukegb. Screenshots:
 
 ![User card](https://cdn.mediacru.sh/AmoCmQR3lv1J.png)
 
