@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="AssociationMc" title="Association Minecraft" version_string="1.0" version_id="0" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadThreadController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Thread" description="Class hook to add Minecraft account to user post info in threads."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ProfilePage" callback_method="hook" active="1" hint="member_view_sidebar_middle1" description="Hook to add Minecraft account to user profile sidebar."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ThreadPost" callback_method="hook" active="1" hint="message_user_info_text" description="Hook to add Minecraft account to user post info in threads."/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <group group_id="associationMcOpts" display_order="1" debug_only="0"/>
+    <option option_id="mcAssocInsecure" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="50"/>
+    </option>
+    <option option_id="mcAssocSharedSecret" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="11"/>
+    </option>
+    <option option_id="mcAssocSiteId" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
+    <phrase title="mc_assoc_visitor_link" version_id="0" version_string="1.0"><![CDATA[Minecraft association]]></phrase>
+    <phrase title="option_group_associationMcOpts" version_id="0" version_string="1.0"><![CDATA[Minecraft association options]]></phrase>
+    <phrase title="option_group_associationMcOpts_description" version_id="0" version_string="1.0"><![CDATA[Manages the settings used to communicate with <a href="http://mcassoc.lukegb.com/">MCAssoc</a>.]]></phrase>
+    <phrase title="option_mcAssocInsecure" version_id="0" version_string="1.0"><![CDATA[Insecure mode]]></phrase>
+    <phrase title="option_mcAssocInsecure_explain" version_id="0" version_string="1.0"><![CDATA[You should not use this option in a production environment.
+Running in insecure mode disables all signature verification, people will be able to fake whatever MC account they want!]]></phrase>
+    <phrase title="option_mcAssocSharedSecret" version_id="0" version_string="1.0"><![CDATA[Shared secret]]></phrase>
+    <phrase title="option_mcAssocSharedSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is shared between you and MCAssoc. You will need to request this from lukegb.]]></phrase>
+    <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
+    <phrase title="option_mcAssocSiteId_explain" version_id="0" version_string="1.0"><![CDATA[Publicly displayed site id.]]></phrase>
+  </phrases>
+  <route_prefixes>
+    <route_type type="public">
+      <prefix original_prefix="mc-association" class="AssociationMc_Route_Prefix_View" build_link="all"/>
+    </route_type>
+  </route_prefixes>
+  <style_properties/>
+  <templates>
+    <template title="association_error" version_id="0" version_string="1.0"><![CDATA[<xen:title>Association error</xen:title>
+<div class="section">
+    <div class="primaryContent">
+        <p>There was an error while associating your account.</p>
+        <p>Additional details: {xen:raw $exceptionMessage}</p>
+    </div>
+</div>]]></template>
+    <template title="association_mcassoc.js" version_id="0" version_string="1.0"><![CDATA[// Written by lukegb. See https://github.com/lukegb/mcassoc.php
+
+var MCAssoc = (function() {
+	var MCAssoc = {
+		baseurl: 'https://mcassoc.lukegb.com/'
+	};
+
+	var iframe;
+
+	MCAssoc.init = function(siteid, key, postback, mcusername) {
+		iframe = document.getElementById('mcassoc');
+
+		// mcusername is optional
+		mcusername = mcusername || null;
+
+		// formulate the URL:
+		this.url = this.baseurl + 'perform?';
+
+		var pieces = {
+			siteid: siteid,
+			key: key,
+			postback: postback,
+			mcusername: mcusername
+		};
+		var qs = '';
+		for (var piecen in pieces) {
+			if (!pieces.hasOwnProperty(piecen)) continue;
+			var piecev = pieces[piecen];
+			if (piecev) {
+				if (qs != '') qs += '&';
+				qs += encodeURIComponent(piecen) + '=' + encodeURIComponent(piecev);
+			}
+		}
+
+		this.url += qs;
+
+		iframe.src = this.url;
+	};
+
+	return MCAssoc;
+})();]]></template>
+    <template title="association_profile_sidebar" version_id="0" version_string="1.0"><![CDATA[<div class="section infoBlock">
+    <dl class="secondaryContent pairsJustified">
+        <dl>
+            <dt>Minecraft:</dt>
+            <dd><img src="//minotar.net/avatar/{$mcName}/12"></img> {$mcName}</dd>
+        </dl>
+    </dl>
+</div>]]></template>
+    <template title="association_styling.css" version_id="0" version_string="1.0"><![CDATA[span.mcAccHeading {
+    display: block;
+    color: #aaa;
+    font-size: 9px;
+    padding-left: 6px;
+}
+
+span.mcAccText {
+    display: block;
+    font-size: 11px;
+    padding-left: 6px;
+    margin-top: 3px;
+}]]></template>
+    <template title="association_thread_post" version_id="0" version_string="1.0"><![CDATA[<xen:require css="association_styling.css" />
+<xen:if is="{$mcNames.{$user.user_id}}!=null">
+<span class="mcAccHeading">Minecraft account:</span><span class="mcAccText"><img src="//minotar.net/avatar/{$mcNames.{$user.user_id}}/11"> {$mcNames.{$user.user_id}}</span>
+</xen:if>]]></template>
+    <template title="association_view" version_id="0" version_string="1.0"><![CDATA[<xen:title>Minecraft association</xen:title>
+<xen:if is="{$associated} != true">
+    <div class="section">
+        <div class="primaryContent">
+            <p>You are currently not associated with a Minecraft account. To get started, fill in the form below:</p>
+            <iframe id="mcassoc" width="600" height="400" frameBorder="0" seamless scrolling="no" style="margin-top: 20px;"></iframe>
+        </div>
+    </div>
+    <script type="application/javascript">
+        <xen:include template="association_mcassoc.js" />
+        MCAssoc.init("{xen:raw $siteId}", "{xen:raw $key}", "{xen:raw $retLink}");
+    </script>
+<xen:else />
+    <div class="section">
+        <div class="baseHtml">
+            <p>You appear to be associated with the <img src="//minotar.net/avatar/{$model.last_username}/12"></img> <strong>{$model.last_username}</strong> Minecraft account.</p>
+            <form action="{$deleteUrl}" method="POST">
+                <input class="button" type="submit" value="Remove association">
+                <input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
+            </form>
+        </div>
+    </div>
+
+</xen:if>]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="navigation_visitor_tab" modification_key="add_mc_assoc_link" description="Adds association link to profile dropdown" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:if is="{$xenCache.userUpgradeCount}"><li><a href="{xen:link account/upgrades}">{xen:phrase account_upgrades}</a></li></xen:if>]]></find>
+      <replace><![CDATA[<xen:if is="{$xenCache.userUpgradeCount}"><li><a href="{xen:link account/upgrades}">{xen:phrase account_upgrades}</a></li></xen:if><li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></replace>
+    </modification>
+    <modification template="message_user_info" modification_key="add_mc_names_to_thread" description="Adds mcNames variable to template hook for thread" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'isQuickReply={$isQuickReply}'}">]]></find>
+      <replace><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'mcNames={$mcNames}', 'isQuickReply={$isQuickReply}'}">]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
