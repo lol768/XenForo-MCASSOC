@@ -15,6 +15,9 @@ class AssociationMc_Route_Prefix_View implements XenForo_Route_Interface {
             case 'confirm':
                 $controller = "Confirm";
                 break;
+            case 'delete':
+                $controller = "Delete";
+                break;
             case 'view':
             default:
                 $controller = 'View';

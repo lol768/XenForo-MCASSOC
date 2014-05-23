@@ -29,6 +29,16 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE HEX(minecraft_uuid) = ? LIMIT 1', $uuid);
     }
 
+    public function getEntriesByUserIds(array $ids, $justNames=false) {
+        $ids = join(',', $ids);
+        if ($justNames) {
+            $sql = "SELECT * FROM xf_association_mc WHERE xenforo_id IN (?)";
+        } else {
+            $sql = "SELECT (xenforo_id, last_username) FROM xf_association_mc WHERE xenforo_id IN (?)";
+        }
+        return $this->_getDb()->fetchAll($sql, $ids);
+    }
+
     /**
      * Gets association entries by last known username. May be multiple.
      * Do not rely on usernames to be unique.
