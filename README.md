@@ -1,4 +1,4 @@
-XenForo Minecraft Association Plugin
+XenForo Minecraft Association Addon
 ====================================
 
 Initial release is out. Uses the awesome MCAssoc service by lukegb. Screenshots:
