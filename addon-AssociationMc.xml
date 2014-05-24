@@ -22,6 +22,12 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="50"/>
     </option>
+    <option option_id="mcAssocInstanceSecret" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateSecret">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
     <option option_id="mcAssocSharedSecret" edit_format="textbox" data_type="string" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
@@ -48,6 +54,8 @@
     <phrase title="option_mcAssocInsecure" version_id="0" version_string="1.0"><![CDATA[Insecure mode]]></phrase>
     <phrase title="option_mcAssocInsecure_explain" version_id="0" version_string="1.0"><![CDATA[You should not use this option in a production environment.
 Running in insecure mode disables all signature verification, people will be able to fake whatever MC account they want!]]></phrase>
+    <phrase title="option_mcAssocInstanceSecret" version_id="0" version_string="1.0"><![CDATA[Instance secret]]></phrase>
+    <phrase title="option_mcAssocInstanceSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is private and should not be shared! Treat it like a password.]]></phrase>
     <phrase title="option_mcAssocSharedSecret" version_id="0" version_string="1.0"><![CDATA[Shared secret]]></phrase>
     <phrase title="option_mcAssocSharedSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is shared between you and MCAssoc. You will need to request this from lukegb.]]></phrase>
     <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
