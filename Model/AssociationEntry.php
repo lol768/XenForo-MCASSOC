@@ -30,7 +30,6 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
     }
 
     public function getEntriesByUserIds(array $ids, $justNames=false) {
-        $ids = join(',', $ids);
         if ($justNames) {
             $sql = "SELECT * FROM xf_association_mc WHERE xenforo_id IN (" . $this->_getDb()->quote($ids) . ")";
         } else {
