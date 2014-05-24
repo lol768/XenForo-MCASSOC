@@ -17,19 +17,19 @@
   <optiongroups>
     <group group_id="associationMcOpts" display_order="1" debug_only="0"/>
     <option option_id="mcAssocInsecure" edit_format="onoff" data_type="boolean" can_backup="1">
-      <default_value></default_value>
+      <default_value>0</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="50"/>
     </option>
     <option option_id="mcAssocInstanceSecret" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateSecret">
-      <default_value></default_value>
+      <default_value>abcdef</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="1"/>
     </option>
     <option option_id="mcAssocSharedSecret" edit_format="textbox" data_type="string" can_backup="1">
-      <default_value></default_value>
+      <default_value>abcdef</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="11"/>
