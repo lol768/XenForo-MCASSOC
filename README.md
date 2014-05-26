@@ -7,7 +7,7 @@ Initial release is out. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) s
 
 ![Profile page](https://cdn.mediacru.sh/Vf-LjmC7_QqO.png)
 
-![Settings](https://cdn.mediacru.sh/gh6KVEQprZ1T.png)
+![Settings](https://cdn.mediacru.sh/KW9CQvjcs173.png)
 
 ![Association](https://cdn.mediacru.sh/TRluJI5zL6Yk.png)
 
