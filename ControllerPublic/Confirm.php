@@ -15,6 +15,10 @@ class AssociationMc_ControllerPublic_Confirm extends XenForo_ControllerPublic_Ab
         return;
     }
 
+    public static function getSessionActivityDetailsForList(array $activities) {
+        return new XenForo_Phrase('mc_assoc_managing_assoc');
+    }
+
     /**
      * Check and apply the association request.
      *

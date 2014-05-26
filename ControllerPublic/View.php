@@ -6,6 +6,10 @@ class AssociationMc_ControllerPublic_View extends XenForo_ControllerPublic_Abstr
         return $this->actionView();
     }
 
+    public static function getSessionActivityDetailsForList(array $activities) {
+        return new XenForo_Phrase('mc_assoc_managing_assoc');
+    }
+
     public function actionView() {
         $visitor = XenForo_Visitor::getInstance();
         if (!$visitor->getUserId()) {
