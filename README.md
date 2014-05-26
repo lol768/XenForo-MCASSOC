@@ -11,7 +11,7 @@ Initial release is out. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) s
 
 ![Association](https://cdn.mediacru.sh/TRluJI5zL6Yk.png)
 
-![Association](https://cdn.mediacru.sh/AUEIj0ngiPQr.png)
+![Association](https://cdn.mediacru.sh/adXoLS2in8c8.png)
 
 ![Dropdown](https://cdn.mediacru.sh/_lP_kNTkXhxA.png)
 
