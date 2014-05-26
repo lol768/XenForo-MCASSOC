@@ -22,9 +22,6 @@ class AssociationMc_ControllerPublic_View extends XenForo_ControllerPublic_Abstr
 
         $mcassoc = $this->getMcAssoc();
 
-        $paths = XenForo_Application::get('requestPaths');
-        $paths = XenForo_Application::get('requestPaths');
-
         $user = $visitor['username'];
         $return_link = $this->getConfirmUrl($user);
 
@@ -35,8 +32,24 @@ class AssociationMc_ControllerPublic_View extends XenForo_ControllerPublic_Abstr
             "siteId" => $mcassoc->getSiteId(),
             "key" => $key,
             "stage" => $find,
+            "colours" => $this->buildColourObj(),
             "retLink" => $return_link,
+            "safeUsername" => json_encode($visitor['username']),
             "associated" => false));
+    }
+
+    private function buildColourObj() {
+        $opts = XenForo_Application::get('options');
+        $obj = [
+            "borderBg" => $opts->mcAssocStyleOuterBorderBg,
+            "borderFg" => $opts->mcAssocStyleOuterBorderFg,
+            "boxBg" => $opts->mcAssocStyleBoxBg,
+            "boxFg" => $opts->mcAssocStyleBoxFg,
+            "contentBg" => $opts->mcAssocStyleContentBg,
+            "contentFg" => $opts->mcAssocStyleContentFg
+        ];
+        return json_encode($obj);
+
     }
 
     private function getConfirmUrl($username) {
@@ -51,7 +64,6 @@ class AssociationMc_ControllerPublic_View extends XenForo_ControllerPublic_Abstr
         $opts = XenForo_Application::get('options');
         return new AssociationMc_MCAssoc($opts->mcAssocSiteId, $opts->mcAssocInstanceSecret, $opts->mcAssocSharedSecret);
     }
-
 
 
     /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="AssociationMc" title="Association Minecraft" version_string="1.0" version_id="0" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.5" version_id="5" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -40,6 +40,42 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="1"/>
     </option>
+    <option option_id="mcAssocStyleBoxBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#176093</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="62"/>
+    </option>
+    <option option_id="mcAssocStyleBoxFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#fafafa</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="63"/>
+    </option>
+    <option option_id="mcAssocStyleContentBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#fff</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="64"/>
+    </option>
+    <option option_id="mcAssocStyleContentFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#333</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="65"/>
+    </option>
+    <option option_id="mcAssocStyleOuterBorderBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#2B485C</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="60"/>
+    </option>
+    <option option_id="mcAssocStyleOuterBorderFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
+      <default_value>#eee</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="61"/>
+    </option>
   </optiongroups>
   <permissions>
     <permission_groups/>
@@ -47,6 +83,7 @@
     <interface_groups/>
   </permissions>
   <phrases>
+    <phrase title="mc_assoc_errors_hex_colour" version_id="0" version_string="1.0"><![CDATA[Please enter a valid colour in hexadecimal notation. Examples of acceptable values: #fff, #ffffff]]></phrase>
     <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
     <phrase title="mc_assoc_visitor_link" version_id="0" version_string="1.0"><![CDATA[Minecraft association]]></phrase>
     <phrase title="option_group_associationMcOpts" version_id="0" version_string="1.0"><![CDATA[Minecraft association options]]></phrase>
@@ -60,6 +97,18 @@ Running in insecure mode disables all signature verification, people will be abl
     <phrase title="option_mcAssocSharedSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is shared between you and MCAssoc. You will need to request this from lukegb.]]></phrase>
     <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
     <phrase title="option_mcAssocSiteId_explain" version_id="0" version_string="1.0"><![CDATA[Publicly displayed site id.]]></phrase>
+    <phrase title="option_mcAssocStyleBoxBg" version_id="0" version_string="1.0"><![CDATA[Box background colour]]></phrase>
+    <phrase title="option_mcAssocStyleBoxBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="option_mcAssocStyleBoxFg" version_id="0" version_string="1.0"><![CDATA[Box foreground colour]]></phrase>
+    <phrase title="option_mcAssocStyleBoxFg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="option_mcAssocStyleContentBg" version_id="0" version_string="1.0"><![CDATA[Content area background colour]]></phrase>
+    <phrase title="option_mcAssocStyleContentBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="option_mcAssocStyleContentFg" version_id="0" version_string="1.0"><![CDATA[Content area foreground colour]]></phrase>
+    <phrase title="option_mcAssocStyleContentFg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="option_mcAssocStyleOuterBorderBg" version_id="0" version_string="1.0"><![CDATA[Outer border background colour]]></phrase>
+    <phrase title="option_mcAssocStyleOuterBorderBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="option_mcAssocStyleOuterBorderFg" version_id="0" version_string="1.0"><![CDATA[Outer border foreground colour]]></phrase>
+    <phrase title="option_mcAssocStyleOuterBorderFg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="public">
@@ -75,52 +124,14 @@ Running in insecure mode disables all signature verification, people will be abl
         <p>Additional details: {xen:raw $exceptionMessage}</p>
     </div>
 </div>]]></template>
-    <template title="association_mcassoc.js" version_id="0" version_string="1.0"><![CDATA[// Written by lukegb. See https://github.com/lukegb/mcassoc.php
-
-var MCAssoc = (function() {
-	var MCAssoc = {
-		baseurl: 'https://mcassoc.lukegb.com/'
-	};
-
-	var iframe;
-
-	MCAssoc.init = function(siteid, key, postback, mcusername) {
-		iframe = document.getElementById('mcassoc');
-
-		// mcusername is optional
-		mcusername = mcusername || null;
-
-		// formulate the URL:
-		this.url = this.baseurl + 'perform?';
-
-		var pieces = {
-			siteid: siteid,
-			key: key,
-			postback: postback,
-			mcusername: mcusername
-		};
-		var qs = '';
-		for (var piecen in pieces) {
-			if (!pieces.hasOwnProperty(piecen)) continue;
-			var piecev = pieces[piecen];
-			if (piecev) {
-				if (qs != '') qs += '&';
-				qs += encodeURIComponent(piecen) + '=' + encodeURIComponent(piecev);
-			}
-		}
-
-		this.url += qs;
-
-		iframe.src = this.url;
-	};
-
-	return MCAssoc;
-})();]]></template>
-    <template title="association_profile_sidebar" version_id="0" version_string="1.0"><![CDATA[<div class="section infoBlock">
+    <template title="association_mcassoc.js" version_id="0" version_string="1.0"><![CDATA[/*! Written by lukegb. See https://github.com/lukegb/mcassoc.php */
+var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.init=function(e,n,r,i,s){t=document.getElementById("mcassoc");i=i||null;this.url=this.baseurl+"perform?";var o={siteid:e,key:n,postback:r,mcusername:i};if(s!=null){o["c:bdr:b"]=s.borderBg;o["c:bdr:t"]=s.borderFg;o["c:box:b"]=s.boxBg;o["c:box:t"]=s.boxFg;o["c:mn:b"]=s.contentBg;o["c:mn:t"]=s.contentFg}var u="";for(var a in o){if(!o.hasOwnProperty(a))continue;var f=o[a];if(f){if(u!="")u+="&";u+=encodeURIComponent(a)+"="+encodeURIComponent(f)}}this.url+=u;t.src=this.url};return e}()]]></template>
+    <template title="association_profile_sidebar" version_id="0" version_string="1.0"><![CDATA[<xen:require css="association_styling.css" />
+<div class="section infoBlock">
     <dl class="secondaryContent pairsJustified">
         <dl>
             <dt>Minecraft:</dt>
-            <dd><img src="//minotar.net/avatar/{$mcName}/12"></img> {$mcName}</dd>
+            <dd><img src="//minotar.net/avatar/{$mcName}/12" class="mcAccAvatarLarger"></img> {$mcName}</dd>
         </dl>
     </dl>
 </div>]]></template>
@@ -136,10 +147,20 @@ span.mcAccText {
     font-size: 11px;
     padding-left: 6px;
     margin-top: 3px;
+}
+
+img.mcAccAvatar {
+    width: 11px;
+    height: 11px;
+}
+
+img.mcAccAvatarLarger {
+    width: 12px;
+    height: 12px;
 }]]></template>
     <template title="association_thread_post" version_id="0" version_string="1.0"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
-<span class="mcAccHeading">Minecraft account:</span><span class="mcAccText"><img src="//minotar.net/avatar/{$mcNames.{$user.user_id}}/11"> {$mcNames.{$user.user_id}}</span>
+<span class="mcAccHeading">Minecraft account:</span><span class="mcAccText"><img src="//minotar.net/avatar/{$mcNames.{$user.user_id}}/11" class="mcAccAvatar"></img> {$mcNames.{$user.user_id}}</span>
 </xen:if>]]></template>
     <template title="association_view" version_id="0" version_string="1.0"><![CDATA[<xen:title>Minecraft association</xen:title>
 <xen:if is="{$associated} != true">
@@ -151,7 +172,7 @@ span.mcAccText {
     </div>
     <script type="application/javascript">
         <xen:include template="association_mcassoc.js" />
-        MCAssoc.init("{xen:raw $siteId}", "{xen:raw $key}", "{xen:raw $retLink}");
+        MCAssoc.init("{xen:raw $siteId}", "{xen:raw $key}", "{xen:raw $retLink}", {xen:raw $safeUsername}, {xen:raw $colours});
     </script>
 <xen:else />
     <div class="section">
