@@ -62,7 +62,7 @@ class AssociationMc_ControllerPublic_View extends XenForo_ControllerPublic_Abstr
 
     private function getMcAssoc() {
         $opts = XenForo_Application::get('options');
-        return new AssociationMc_MCAssoc($opts->mcAssocSiteId, $opts->mcAssocInstanceSecret, $opts->mcAssocSharedSecret);
+        return new AssociationMc_MCAssoc($opts->mcAssocSiteId, $opts->mcAssocSharedSecret, $opts->mcAssocInstanceSecret);
     }
 
 

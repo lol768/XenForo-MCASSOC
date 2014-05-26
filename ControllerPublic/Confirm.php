@@ -70,7 +70,7 @@ class AssociationMc_ControllerPublic_Confirm extends XenForo_ControllerPublic_Ab
      */
     private function getMcAssoc() {
         $opts = XenForo_Application::get('options');
-        $mc = new AssociationMc_MCAssoc($opts->mcAssocSiteId, $opts->mcAssocInstanceSecret, $opts->mcAssocInstanceSecret);
+        $mc = new AssociationMc_MCAssoc($opts->mcAssocSiteId, $opts->mcAssocSharedSecret, $opts->mcAssocInstanceSecret);
         if ($opts->mcAssocInsecure) {
             $mc->enableInsecureMode();
         }
