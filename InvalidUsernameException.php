@@ -1,3 +1,3 @@
 <?php
 
-class InvalidUsernameException extends Exception {}
+class AssociationMc_InvalidUsernameException extends Exception {}

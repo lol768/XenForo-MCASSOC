@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.6.1" version_id="7" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.7" version_id="8" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -16,6 +16,18 @@
   <email_template_modifications/>
   <optiongroups>
     <group group_id="associationMcOpts" display_order="1" debug_only="0"/>
+    <option option_id="mcAssocApiEnable" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="70"/>
+    </option>
+    <option option_id="mcAssocApiToken" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="71"/>
+    </option>
     <option option_id="mcAssocInsecure" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value>0</default_value>
       <edit_format_params></edit_format_params>
@@ -89,6 +101,10 @@
     <phrase title="mc_assoc_visitor_link" version_id="0" version_string="1.0"><![CDATA[Minecraft association]]></phrase>
     <phrase title="option_group_associationMcOpts" version_id="0" version_string="1.0"><![CDATA[Minecraft association options]]></phrase>
     <phrase title="option_group_associationMcOpts_description" version_id="0" version_string="1.0"><![CDATA[Manages the settings used to communicate with <a href="http://mcassoc.lukegb.com/">MCAssoc</a>.]]></phrase>
+    <phrase title="option_mcAssocApiEnable" version_id="7" version_string="0.6.1"><![CDATA[Enable API]]></phrase>
+    <phrase title="option_mcAssocApiEnable_explain" version_id="7" version_string="0.6.1"><![CDATA[Whether or not you wish to enable the JSON-based AssociationMc API.]]></phrase>
+    <phrase title="option_mcAssocApiToken" version_id="7" version_string="0.6.1"><![CDATA[API Token]]></phrase>
+    <phrase title="option_mcAssocApiToken_explain" version_id="7" version_string="0.6.1"><![CDATA[If the API is enabled, this must be passed via the 'token' parameter. Do not give this out to people you do not trust - the API can expose emails, groups and other sensitive info.]]></phrase>
     <phrase title="option_mcAssocInsecure" version_id="0" version_string="1.0"><![CDATA[Insecure mode]]></phrase>
     <phrase title="option_mcAssocInsecure_explain" version_id="0" version_string="1.0"><![CDATA[You should not use this option in a production environment.
 Running in insecure mode disables all signature verification, people will be able to fake whatever MC account they want!]]></phrase>

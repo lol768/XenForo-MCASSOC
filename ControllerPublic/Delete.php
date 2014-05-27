@@ -5,7 +5,7 @@
  */
 class AssociationMc_ControllerPublic_Delete extends XenForo_ControllerPublic_Abstract {
 
-    public function actionDelete() {
+    public function actionIndex() {
         $visitorId = XenForo_Visitor::getUserId();
         $associationDw = XenForo_DataWriter::create('AssociationMc_DataWriter_AssociationEntry');
         $associationDw->setExistingData($visitorId);

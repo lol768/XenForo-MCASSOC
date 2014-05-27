@@ -24,7 +24,7 @@ class AssociationMc_ControllerPublic_Confirm extends XenForo_ControllerPublic_Ab
      *
      * @return XenForo_ControllerResponse_Redirect|XenForo_ControllerResponse_View
      */
-    public function actionConfirm() {
+    public function actionIndex() {
 
         $mcAssoc = $this->getMcAssoc();
 

@@ -18,13 +18,17 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
     /**
      * Gets an association entry by UUID.
      * @param string $uuid Hex representation of UUID
-     * @throws InvalidUuidException
+     * @throws AssociationMc_InvalidUuidException
      * @return mixed
      */
     public function getEntryByMinecraftUuid($uuid) {
         if (strlen($uuid) !== 32) {
             // 32 characters = 32 nibbles = 128 bits = 16 bytes
-            throw new InvalidUuidException("UUID must be 32 characters");
+            throw new AssociationMc_InvalidUuidException("UUID must be 32 characters");
+        }
+
+        if (!ctype_xdigit($uuid)) {
+            throw new AssociationMc_InvalidUuidException("UUID must consist of 32 hexadecimal characters. Hyphens are superfluous and should not be used.");
         }
         return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE HEX(minecraft_uuid) = ? LIMIT 1', $uuid);
     }
@@ -42,12 +46,12 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
      * Gets association entries by last known username. May be multiple.
      * Do not rely on usernames to be unique.
      * @param string $username Username to lookup. May not be more than 16 characters.
-     * @throws InvalidUsernameException
+     * @throws AssociationMc_InvalidUsernameException
      * @return mixed
      */
     public function getEntriesByUsername($username) {
         if (strlen($username) > 16 || strlen($username) < 1) {
-            throw new InvalidUsernameException("Username length is invalid.");
+            throw new AssociationMc_InvalidUsernameException("Username length is invalid.");
         }
         return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE last_username = ?', $username);
     }

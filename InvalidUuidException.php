@@ -1,3 +1,3 @@
 <?php
 
-class InvalidUuidException extends Exception {}
+class AssociationMc_InvalidUuidException extends Exception {}
