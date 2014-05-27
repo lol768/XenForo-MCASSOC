@@ -18,7 +18,7 @@ Where uid is the user's **XenForo** user id, the token is the token set in the x
 
 Example requests:
 
-````json
+````javascript
 /* Request to mc-association/api/lookupUserById&uid=1&token=abc&userInfo=true */
 {
 
@@ -61,7 +61,7 @@ Example requests:
 }
 ````
 
-````json
+````javascript
 /* Request to mc-association/api/lookupUserById&uid=1&token=abc */
 {
 
@@ -72,7 +72,7 @@ Example requests:
 }
 ````
 
-````json
+````javascript
 /* Request to mc-association/api/lookupUserById&uid=2&token=abc */
 /* User id 2 has not associated their account. */
 []
@@ -90,7 +90,7 @@ Where :uuid is the user's **Minecraft** UUID in hexadecimal notation without hyp
 
 Example requests:
 
-````json
+````javascript
 /* Request to mc-association/api/lookupUserByUuid&uuid=34648d5df7b94f7289d19b63e7b3ecbb&userInfo=true&token=abc */
 {
 
@@ -133,7 +133,7 @@ Example requests:
 }
 ````
 
-````json
+````javascript
 /* Request to mc-association/api/lookupUserByUuid&uuid=34648d5df7b94f7289d19b63e7b3ecbb&token=abc */
 {
 
@@ -156,7 +156,7 @@ Where :username is the **XenForo username** and :token is the token set in the X
 
 Example request:
 
-````json
+````javascript
 {
 
     "user_id": 1,
