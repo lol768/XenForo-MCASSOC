@@ -62,6 +62,10 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
         return $this->responseView('AssociationMc_ViewPublic_Api', '', array("data" => $entry));
     }
 
+    public function addUserToGroup() {
+
+    }
+
     private function handleAdditionalInfo(&$entry) {
         $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
         if ($addInfo) {

@@ -10,6 +10,9 @@ class AssociationMc_ControllerPublic_Thread extends XFCP_AssociationMc_Controlle
     public function actionIndex() {
         $view = parent::actionIndex();
         $uniqueUserIds = [];
+        if (!$view instanceof XenForo_ControllerResponse_View) {
+            return $view;
+        }
         foreach ($view->params['posts'] as $post) {
             if (!in_array($post['user_id'], $uniqueUserIds)) {
                 $uniqueUserIds[] = $post['user_id'];
