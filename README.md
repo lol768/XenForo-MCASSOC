@@ -1,7 +1,7 @@
 XenForo Minecraft Association Addon
 ====================================
 
-Initial release is out. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) service by lukegb.
+Minecraft association for XenForo. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) service by lukegb.
 
 Features
 --------
@@ -17,6 +17,7 @@ Features
   * Powered by lukegb's open-source [MCAssoc](http://mcassoc.lukegb.com/) service.
 * Uses templates and phrases to ensure you can change the display of the addon.
 * Easy to install.
+* Works in conversations.
 
 Screenshots
 -----------
@@ -25,6 +26,8 @@ See [this](https://github.com/lol768/XenForo-MCASSOC/blob/master/SCREENSHOTS.md)
 
 Installing
 ----------
+
+**You need PHP 5.4 or later.**
 
 The install procedure should be the same as most other XenForo addons. Here's how it works:
 

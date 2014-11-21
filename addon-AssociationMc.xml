@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.7" version_id="8" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.8" version_id="9" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
@@ -8,6 +8,7 @@
   <code_events/>
   <code_event_listeners>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadThreadController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Thread" description="Class hook to add Minecraft account to user post info in threads."/>
+    <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadPrivateMessageController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Conversation" description="Allows the addon to add in Minecraft info in private messages."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ProfilePage" callback_method="hook" active="1" hint="member_view_sidebar_middle1" description="Hook to add Minecraft account to user profile sidebar."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ThreadPost" callback_method="hook" active="1" hint="message_user_info_text" description="Hook to add Minecraft account to user post info in threads."/>
   </code_event_listeners>
