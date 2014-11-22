@@ -47,6 +47,24 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
         return $this->responseView('AssociationMc_ViewPublic_Api', '', $data);
     }
 
+    public function actionListAll() {
+        $entries = $this->_getAssociationEntryModel()->getAll();
+        $ids = [];
+        $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
+        foreach ($entries as $entry) {
+            $ids[] = $entry['xenforo_id'];
+        }
+        $users = $this->_getUserModel()->getUsersByIds($ids);
+        foreach ($entries as &$entry) {
+            $entry['username'] = $users[$entry['xenforo_id']]['username'];
+
+            if ($addInfo) {
+                $entry['userInfo'] = $users[$entry['xenforo_id']];
+            }
+        }
+        return $this->responseView('AssociationMc_ViewPublic_Api', '', array("data" => $entries));
+    }
+
     public function actionLookupUserByUuid() {
         $uuid = $this->_input->filterSingle('uuid', XenForo_Input::STRING);
 

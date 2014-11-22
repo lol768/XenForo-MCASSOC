@@ -33,6 +33,10 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE HEX(minecraft_uuid) = ? LIMIT 1', $uuid);
     }
 
+    public function getAll() {
+        return $this->_getDb()->fetchAll("SELECT xenforo_id, last_username, HEX(minecraft_uuid) as minecraft_uuid FROM xf_association_mc");
+    }
+
     public function getEntriesByUserIds(array $ids, $justNames=false) {
         if ($justNames) {
             $sql = "SELECT * FROM xf_association_mc WHERE xenforo_id IN (" . $this->_getDb()->quote($ids) . ")";
