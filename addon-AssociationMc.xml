@@ -4,11 +4,19 @@
   <admin_permissions/>
   <admin_style_properties/>
   <admin_templates/>
-  <admin_template_modifications/>
+  <admin_template_modifications>
+    <modification template="user_extra" modification_key="user_association_info" description="Adds association status to extra tab in admin panel" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<h3 class="textHeading">{xen:phrase active_user_upgrades}</h3>]]></find>
+      <replace><![CDATA[<h3 class="textHeading">{xen:phrase mc_assoc_admin_extra_title}</h3>
+<p><xen:if is="{$mcAssoc.associated}">{$mcAssoc.last_username} ({$mcAssoc.minecraft_uuid})</p><p><xen:form action="{xen:link mc-association/delete/deleteOther }" method="POST"><input type="hidden" name="user_id" value="{$user.user_id}"><input type="submit" value="Remove association" class="button primary"></xen:form> <xen:else />No association.</xen:if></p>
+<h3 class="textHeading">{xen:phrase active_user_upgrades}</h3>]]></replace>
+    </modification>
+  </admin_template_modifications>
   <code_events/>
   <code_event_listeners>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadThreadController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Thread" description="Class hook to add Minecraft account to user post info in threads."/>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadPrivateMessageController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Conversation" description="Allows the addon to add in Minecraft info in private messages."/>
+    <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadAdminUserEditController" callback_method="hook" active="1" hint="XenForo_ControllerAdmin_User" description="Adds association info to user admin edit page."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ProfilePage" callback_method="hook" active="1" hint="member_view_sidebar_middle1" description="Hook to add Minecraft account to user profile sidebar."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ThreadPost" callback_method="hook" active="1" hint="message_user_info_text" description="Hook to add Minecraft account to user post info in threads."/>
   </code_event_listeners>
@@ -28,6 +36,12 @@
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="71"/>
+    </option>
+    <option option_id="mcAssocDisableIntegration" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="14"/>
     </option>
     <option option_id="mcAssocInsecure" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value>0</default_value>
@@ -91,11 +105,18 @@
     </option>
   </optiongroups>
   <permissions>
-    <permission_groups/>
-    <permissions/>
-    <interface_groups/>
+    <permission_groups>
+      <permission_group permission_group_id="mcAssoc"/>
+    </permission_groups>
+    <permissions>
+      <permission permission_group_id="mcAssoc" permission_id="mcAssocRemoveFromAny" permission_type="flag" default_value="unset" interface_group_id="mcAssocInterface" display_order="1"/>
+    </permissions>
+    <interface_groups>
+      <interface_group interface_group_id="mcAssocInterface" display_order="100"/>
+    </interface_groups>
   </permissions>
   <phrases>
+    <phrase title="mc_assoc_admin_extra_title" global_cache="1" version_id="9" version_string="0.8"><![CDATA[Minecraft association info]]></phrase>
     <phrase title="mc_assoc_errors_hex_colour" version_id="0" version_string="1.0"><![CDATA[Please enter a valid colour in hexadecimal notation. Examples of acceptable values: #fff, #ffffff]]></phrase>
     <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
     <phrase title="mc_assoc_managing_assoc" version_id="6" version_string="0.6"><![CDATA[Managing Minecraft Association]]></phrase>
@@ -106,6 +127,8 @@
     <phrase title="option_mcAssocApiEnable_explain" version_id="7" version_string="0.6.1"><![CDATA[Whether or not you wish to enable the JSON-based AssociationMc API.]]></phrase>
     <phrase title="option_mcAssocApiToken" version_id="7" version_string="0.6.1"><![CDATA[API Token]]></phrase>
     <phrase title="option_mcAssocApiToken_explain" version_id="7" version_string="0.6.1"><![CDATA[If the API is enabled, this must be passed via the 'token' parameter. Do not give this out to people you do not trust - the API can expose emails, groups and other sensitive info.]]></phrase>
+    <phrase title="option_mcAssocDisableIntegration" version_id="9" version_string="0.8"><![CDATA[Disable integration with MCAssoc]]></phrase>
+    <phrase title="option_mcAssocDisableIntegration_explain" version_id="9" version_string="0.8"><![CDATA[If you're planning on using an alternative means of associating users (e.g. server plugin), you can disable the integration with MCAssoc. Currently not implemented.]]></phrase>
     <phrase title="option_mcAssocInsecure" version_id="0" version_string="1.0"><![CDATA[Insecure mode]]></phrase>
     <phrase title="option_mcAssocInsecure_explain" version_id="0" version_string="1.0"><![CDATA[You should not use this option in a production environment.
 Running in insecure mode disables all signature verification, people will be able to fake whatever MC account they want!]]></phrase>
@@ -114,7 +137,7 @@ Running in insecure mode disables all signature verification, people will be abl
     <phrase title="option_mcAssocSharedSecret" version_id="0" version_string="1.0"><![CDATA[Shared secret]]></phrase>
     <phrase title="option_mcAssocSharedSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is shared between you and MCAssoc. You will need to request this from lukegb.]]></phrase>
     <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
-    <phrase title="option_mcAssocSiteId_explain" version_id="0" version_string="1.0"><![CDATA[Publicly displayed site id.]]></phrase>
+    <phrase title="option_mcAssocSiteId_explain" version_id="9" version_string="0.8"><![CDATA[Publicly displayed site id. If this isn't set, you'll get a "required parameter(s) missing" error.]]></phrase>
     <phrase title="option_mcAssocStyleBoxBg" version_id="0" version_string="1.0"><![CDATA[Box background colour]]></phrase>
     <phrase title="option_mcAssocStyleBoxBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
     <phrase title="option_mcAssocStyleBoxFg" version_id="0" version_string="1.0"><![CDATA[Box foreground colour]]></phrase>
@@ -127,6 +150,9 @@ Running in insecure mode disables all signature verification, people will be abl
     <phrase title="option_mcAssocStyleOuterBorderBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
     <phrase title="option_mcAssocStyleOuterBorderFg" version_id="0" version_string="1.0"><![CDATA[Outer border foreground colour]]></phrase>
     <phrase title="option_mcAssocStyleOuterBorderFg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
+    <phrase title="permission_group_mcAssoc" version_id="9" version_string="0.8"><![CDATA[Minecraft association permissions]]></phrase>
+    <phrase title="permission_interface_mcAssocInterface" version_id="9" version_string="0.8"><![CDATA[Minecraft association permissions]]></phrase>
+    <phrase title="permission_mcAssoc_mcAssocRemoveFromAny" version_id="9" version_string="0.8"><![CDATA[Modify association on all users]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="public">
