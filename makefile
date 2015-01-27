@@ -1,3 +1,4 @@
+SHELL := /usr/bin/zsh
 all: addon-AssociationMc.xml
 	mkdir -p upload/library/AssociationMc/; \
 	cp --parents -r **/*.php upload/library/AssociationMc/; \
