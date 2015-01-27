@@ -26,9 +26,9 @@ New verification system
 
 **Now setting up the addon is easier than ever!**
 
-A new, completely automated system has been introduced to allow for domains to be verified and shared secret keys to be
-generated on-demand. This replaces the old system which required add-on users to send an email to lukegb. Many thanks to
-lukegb for his help getting these changes deployed.
+The shared secret is a required setting when configuring the addon and a new, completely automated system has been
+introduced to allow for domains to be verified and shared secret keys to be generated on-demand. This replaces the old
+system which required add-on users to send an email to lukegb. Many thanks to lukegb for his help getting these changes deployed.
 
 1. Visit https://mcassoc.lukegb.com/
 2. Enter the domain (where the forums are served from) you wish to verify in the right-hand textbox
@@ -65,8 +65,9 @@ Now the install is done and you should see the addon in your addons list. It's t
 * Go to the Home -> Options page in the ACP.
 * Find the "Minecraft Association" settings page:
   * ![image](https://cdn.mediacru.sh/cx1LOGSM3xGV.png)
-* You will *need to generate* the shared secret. See the above section for information on how to do this.
+* You will *need to verify your domain to get the shared secret. See the above section ("New verification system") for information on how to do this.
 * The instance secret needs to be set to an even length hexadecimal string. This should be treated as a password.
+  * If you don't know what this means, you can generate an instance secret to use [here](http://jsbin.com/jadofehoqu/1/).
 * Save the settings.
 
 Now the addon's link will be available in the profile dropdown. You can use this link to ensure everything is working.
