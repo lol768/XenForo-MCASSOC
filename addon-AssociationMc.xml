@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="AssociationMc" title="Association Minecraft" version_string="0.8" version_id="9" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
+<addon addon_id="AssociationMc" title="Association Minecraft" version_string="1.0" version_id="10" url="https://github.com/lol768/XenForo-MCASSOC" install_callback_class="AssociationMc_Installer" install_callback_method="install" uninstall_callback_class="AssociationMc_Installer" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
-  <admin_templates/>
+  <admin_templates>
+    <template title="association_custom_criteria"><![CDATA[<xen:controlunit label="{xen:phrase mc_assoc_admin_criteria_label}:">
+<ul>
+	<xen:hook name="user_criteria_assoc_mc">
+	<li><label>
+		<input type="checkbox" name="user_criteria[mc_assoc_associated][rule]" value="mc_assoc_associated" {xen:checked $userCriteria.mc_assoc_associated} />
+		{xen:phrase mc_assoc_admin_criteria_associated}
+	</label></li>	
+	</xen:hook>
+</ul>
+</xen:controlunit>
+</fieldset>
+]]></template>
+  </admin_templates>
   <admin_template_modifications>
     <modification template="user_extra" modification_key="user_association_info" description="Adds association status to extra tab in admin panel" execution_order="10" enabled="1" action="str_replace">
       <find><![CDATA[<h3 class="textHeading">{xen:phrase active_user_upgrades}</h3>]]></find>
       <replace><![CDATA[<h3 class="textHeading">{xen:phrase mc_assoc_admin_extra_title}</h3>
-<p><xen:if is="{$mcAssoc.associated}">{$mcAssoc.last_username} ({$mcAssoc.minecraft_uuid})</p><p><xen:form action="{xen:link mc-association/delete/deleteOther }" method="POST"><input type="hidden" name="user_id" value="{$user.user_id}"><input type="submit" value="Remove association" class="button primary"></xen:form> <xen:else />No association.</xen:if></p>
+<p><xen:if is="{$mcAssoc.associated}">{$mcAssoc.last_username} ({$mcAssoc.minecraft_uuid})</p><p><xen:form action="{xen:link mc-association/delete/deleteOther }" method="POST"><input type="hidden" name="user_id" value="{$user.user_id}"><input type="submit" value="Remove association" class="button primary" style="min-width: 125px"></xen:form> <xen:else />No association.</xen:if></p>
 <h3 class="textHeading">{xen:phrase active_user_upgrades}</h3>]]></replace>
     </modification>
   </admin_template_modifications>
   <code_events/>
   <code_event_listeners>
+    <listener event_id="criteria_user" execute_order="10" callback_class="AssociationMc_Listener_NewUserCriteria" callback_method="checkCriteria" active="1" hint="" description="Checks user criteria validity."/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="AssociationMc_Helpers_Listener" callback_method="init" active="1" hint="" description="Adds listener to register avatar helper."/>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadThreadController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Thread" description="Class hook to add Minecraft account to user post info in threads."/>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadPrivateMessageController" callback_method="hook" active="1" hint="XenForo_ControllerPublic_Conversation" description="Allows the addon to add in Minecraft info in private messages."/>
     <listener event_id="load_class" execute_order="10" callback_class="AssociationMc_Listener_LoadAdminUserEditController" callback_method="hook" active="1" hint="XenForo_ControllerAdmin_User" description="Adds association info to user admin edit page."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ProfilePage" callback_method="hook" active="1" hint="member_view_sidebar_middle1" description="Hook to add Minecraft account to user profile sidebar."/>
     <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_ThreadPost" callback_method="hook" active="1" hint="message_user_info_text" description="Hook to add Minecraft account to user post info in threads."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_NewUserCriteria" callback_method="hook" active="1" hint="user_criteria_extra" description="Adds user criterion for trophies/promotions etc."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_VisitorDropdown" callback_method="hookLeft" active="1" hint="navigation_visitor_tab_links1" description="Adds manage association link to visitor dropdown (left side)."/>
+    <listener event_id="template_hook" execute_order="10" callback_class="AssociationMc_Listener_VisitorDropdown" callback_method="hookRight" active="1" hint="navigation_visitor_tab_links2" description="Adds manage association link to visitor dropdown (right side)."/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
@@ -37,11 +55,11 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="71"/>
     </option>
-    <option option_id="mcAssocDisableIntegration" edit_format="onoff" data_type="boolean" can_backup="1">
-      <default_value>0</default_value>
+    <option option_id="mcAssocAvatarUrl" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value>//crafatar.com/avatars/%u?size=%s</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
-      <relation group_id="associationMcOpts" display_order="14"/>
+      <relation group_id="associationMcOpts" display_order="1"/>
     </option>
     <option option_id="mcAssocInsecure" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value>0</default_value>
@@ -116,6 +134,8 @@
     </interface_groups>
   </permissions>
   <phrases>
+    <phrase title="mc_assoc_admin_criteria_associated" version_id="9" version_string="0.8"><![CDATA[User is associated with a Minecraft account]]></phrase>
+    <phrase title="mc_assoc_admin_criteria_label" version_id="9" version_string="0.8"><![CDATA[Minecraft association]]></phrase>
     <phrase title="mc_assoc_admin_extra_title" global_cache="1" version_id="9" version_string="0.8"><![CDATA[Minecraft association info]]></phrase>
     <phrase title="mc_assoc_errors_hex_colour" version_id="0" version_string="1.0"><![CDATA[Please enter a valid colour in hexadecimal notation. Examples of acceptable values: #fff, #ffffff]]></phrase>
     <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
@@ -127,15 +147,15 @@
     <phrase title="option_mcAssocApiEnable_explain" version_id="7" version_string="0.6.1"><![CDATA[Whether or not you wish to enable the JSON-based AssociationMc API.]]></phrase>
     <phrase title="option_mcAssocApiToken" version_id="7" version_string="0.6.1"><![CDATA[API Token]]></phrase>
     <phrase title="option_mcAssocApiToken_explain" version_id="7" version_string="0.6.1"><![CDATA[If the API is enabled, this must be passed via the 'token' parameter. Do not give this out to people you do not trust - the API can expose emails, groups and other sensitive info.]]></phrase>
-    <phrase title="option_mcAssocDisableIntegration" version_id="9" version_string="0.8"><![CDATA[Disable integration with MCAssoc]]></phrase>
-    <phrase title="option_mcAssocDisableIntegration_explain" version_id="9" version_string="0.8"><![CDATA[If you're planning on using an alternative means of associating users (e.g. server plugin), you can disable the integration with MCAssoc. Currently not implemented.]]></phrase>
+    <phrase title="option_mcAssocAvatarUrl" version_id="9" version_string="0.8"><![CDATA[Avatar head URL]]></phrase>
+    <phrase title="option_mcAssocAvatarUrl_explain" version_id="9" version_string="0.8"><![CDATA[Defines the URL where avatar images will be loaded from.<br />%s - size (in px) &mdash; %u - Minecraft username<br />Use protocol-relative URLs where possible!]]></phrase>
     <phrase title="option_mcAssocInsecure" version_id="0" version_string="1.0"><![CDATA[Insecure mode]]></phrase>
     <phrase title="option_mcAssocInsecure_explain" version_id="0" version_string="1.0"><![CDATA[You should not use this option in a production environment.
 Running in insecure mode disables all signature verification, people will be able to fake whatever MC account they want!]]></phrase>
     <phrase title="option_mcAssocInstanceSecret" version_id="0" version_string="1.0"><![CDATA[Instance secret]]></phrase>
     <phrase title="option_mcAssocInstanceSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is private and should not be shared! Treat it like a password.]]></phrase>
     <phrase title="option_mcAssocSharedSecret" version_id="0" version_string="1.0"><![CDATA[Shared secret]]></phrase>
-    <phrase title="option_mcAssocSharedSecret_explain" version_id="0" version_string="1.0"><![CDATA[This is shared between you and MCAssoc. You will need to request this from lukegb.]]></phrase>
+    <phrase title="option_mcAssocSharedSecret_explain" version_id="9" version_string="0.8"><![CDATA[This is shared between you and MCAssoc. You can easily generate a shared secret by supplying your domain <a href="https://mcassoc.lukegb.com">here</a>.]]></phrase>
     <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
     <phrase title="option_mcAssocSiteId_explain" version_id="9" version_string="0.8"><![CDATA[Publicly displayed site id. If this isn't set, you'll get a "required parameter(s) missing" error.]]></phrase>
     <phrase title="option_mcAssocStyleBoxBg" version_id="0" version_string="1.0"><![CDATA[Box background colour]]></phrase>
@@ -170,12 +190,12 @@ Running in insecure mode disables all signature verification, people will be abl
 </div>]]></template>
     <template title="association_mcassoc.js" version_id="0" version_string="1.0"><![CDATA[/*! Written by lukegb. See https://github.com/lukegb/mcassoc.php */
 var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.init=function(e,n,r,i,s){t=document.getElementById("mcassoc");i=i||null;this.url=this.baseurl+"perform?";var o={siteid:e,key:n,postback:r,mcusername:i};if(s!=null){o["c:bdr:b"]=s.borderBg;o["c:bdr:t"]=s.borderFg;o["c:box:b"]=s.boxBg;o["c:box:t"]=s.boxFg;o["c:mn:b"]=s.contentBg;o["c:mn:t"]=s.contentFg}var u="";for(var a in o){if(!o.hasOwnProperty(a))continue;var f=o[a];if(f){if(u!="")u+="&";u+=encodeURIComponent(a)+"="+encodeURIComponent(f)}}this.url+=u;t.src=this.url};return e}()]]></template>
-    <template title="association_profile_sidebar" version_id="0" version_string="1.0"><![CDATA[<xen:require css="association_styling.css" />
+    <template title="association_profile_sidebar" version_id="9" version_string="0.8"><![CDATA[<xen:require css="association_styling.css" />
 <div class="section infoBlock">
     <dl class="secondaryContent pairsJustified">
         <dl>
             <dt>Minecraft:</dt>
-            <dd><img src="//minotar.net/avatar/{$mcName}/12" class="mcAccAvatarLarger"></img> {$mcName}</dd>
+            <dd><img src="{xen:helper headimage, $mcName, 12}" class="mcAccAvatarLarger"></img> {$mcName}</dd>
         </dl>
     </dl>
 </div>]]></template>
@@ -202,11 +222,11 @@ img.mcAccAvatarLarger {
     width: 12px;
     height: 12px;
 }]]></template>
-    <template title="association_thread_post" version_id="0" version_string="1.0"><![CDATA[<xen:require css="association_styling.css" />
+    <template title="association_thread_post" version_id="9" version_string="0.8"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
-<span class="mcAccHeading">Minecraft account:</span><span class="mcAccText"><img src="//minotar.net/avatar/{$mcNames.{$user.user_id}}/11" class="mcAccAvatar"></img> {$mcNames.{$user.user_id}}</span>
+<span class="mcAccHeading">Minecraft account:</span><span class="mcAccText"><img src="{xen:helper headimage, {$mcNames.{$user.user_id}}, 11}" class="mcAccAvatar"></img> {$mcNames.{$user.user_id}}</span>
 </xen:if>]]></template>
-    <template title="association_view" version_id="0" version_string="1.0"><![CDATA[<xen:title>Minecraft association</xen:title>
+    <template title="association_view" version_id="9" version_string="0.8"><![CDATA[<xen:title>Minecraft association</xen:title>
 <xen:if is="{$associated} != true">
     <div class="section">
         <div class="primaryContent">
@@ -221,7 +241,7 @@ img.mcAccAvatarLarger {
 <xen:else />
     <div class="section">
         <div class="baseHtml">
-            <p>You appear to be associated with the <img src="//minotar.net/avatar/{$model.last_username}/12"></img> <strong>{$model.last_username}</strong> Minecraft account.</p>
+            <p>You appear to be associated with the <img src="{xen:helper headimage, {$model.last_username}, 12}"></img> <strong>{$model.last_username}</strong> Minecraft account.</p>
             <form action="{$deleteUrl}" method="POST">
                 <input class="button" type="submit" value="Remove association">
                 <input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
@@ -230,12 +250,10 @@ img.mcAccAvatarLarger {
     </div>
 
 </xen:if>]]></template>
+    <template title="association_visitor_left" version_id="9" version_string="0.8"><![CDATA[<li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></template>
+    <template title="association_visitor_right" version_id="9" version_string="0.8"><![CDATA[<!-- MCAssoc: feel free to move the link here if you prefer -->]]></template>
   </templates>
   <public_template_modifications>
-    <modification template="navigation_visitor_tab" modification_key="add_mc_assoc_link" description="Adds association link to profile dropdown" execution_order="10" enabled="1" action="str_replace">
-      <find><![CDATA[<xen:if is="{$xenCache.userUpgradeCount}"><li><a href="{xen:link account/upgrades}">{xen:phrase account_upgrades}</a></li></xen:if>]]></find>
-      <replace><![CDATA[<xen:if is="{$xenCache.userUpgradeCount}"><li><a href="{xen:link account/upgrades}">{xen:phrase account_upgrades}</a></li></xen:if><li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></replace>
-    </modification>
     <modification template="message_user_info" modification_key="add_mc_names_to_thread" description="Adds mcNames variable to template hook for thread" execution_order="10" enabled="1" action="str_replace">
       <find><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'isQuickReply={$isQuickReply}'}">]]></find>
       <replace><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'mcNames={$mcNames}', 'isQuickReply={$isQuickReply}'}">]]></replace>

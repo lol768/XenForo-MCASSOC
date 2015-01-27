@@ -60,5 +60,7 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE last_username = ?', $username);
     }
 
-
+    public function getEntryCountForUserId($userId) {
+        return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? LIMIT 1", $userId);
+    }
 } 

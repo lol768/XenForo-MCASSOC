@@ -1,0 +1,8 @@
+{
+	"addon":	{
+		"id":	"AssociationMc",
+		"name":	"AssociationMc",
+		"namespace":	"AssociationMc",
+		"path":	"library/AssociationMc/"
+	}
+}

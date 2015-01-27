@@ -18,7 +18,7 @@ class AssociationMc_ControllerPublic_Delete extends XenForo_ControllerPublic_Abs
         $userId = $this->_input->filterSingle("user_id", XenForo_Input::UINT);
         $this->checkExists($userId);
         $visitor = XenForo_Visitor::getInstance();
-        $hasPermission = $visitor->hasPermission("mcAssoc", "mcAssocRemoveFromAny");
+        $hasPermission = $visitor->hasPermission("mcAssoc", "mcAssocRemoveFromAny") || $visitor->hasAdminPermission("user");
         if (!$hasPermission) {
             throw $this->getNoPermissionResponseException();
         } else {
