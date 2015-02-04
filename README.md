@@ -1,7 +1,7 @@
 XenForo Minecraft Association Addon
 ====================================
 
-[XenForo resource](https://xenforo.com/community/resources/associationmc.3232/).
+[XenForo resource](https://xenforo.com/community/resources/associationmc.3232/). [Info on Minecraft username changes](https://xenforo.com/community/threads/associationmc.74920/#post-892880).
 
 Minecraft association for XenForo. Uses the awesome [MCAssoc](http://mcassoc.lukegb.com/) service by lukegb.
 
