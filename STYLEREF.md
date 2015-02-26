@@ -1,1 +1,1 @@
-![image](https://cdn.mediacru.sh/WRjoA-E0KlIs.png)
+![Style ref](https://i.imgur.com/jo6U9Rl.png)

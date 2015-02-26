@@ -41,6 +41,8 @@ system which required add-on users to send an email to lukegb. Many thanks to lu
 4. Decide how you want to verify your domain. At present, you can either create a HTML file or add a TXT record to your domain.
 5. Follow the instructions and click the appropriate button to receive your shared secret.
 6. Paste the shared secret into the Minecraft association options in XenForo's admin control panel.
+7. Set the site ID to exactly what you typed into the textbox on the verification site.
+8. Set the instance secret to a secret hexadecimal password (generate one [here](http://jsbin.com/jadofehoqu/1/))
 
 Note: If you're using CloudFlare or enforcing SSL it is suggested you try the TXT record verification system *first*.
 
@@ -66,10 +68,10 @@ The install procedure should be the same as most other XenForo addons. Here's ho
 Now the install is done and you should see the addon in your addons list. It's time to configure it:
 * Go to the Home -> Options page in the ACP.
 * Find the "Minecraft Association" settings page:
-  * ![image](https://cdn.mediacru.sh/cx1LOGSM3xGV.png)
+  * ![image](https://i.imgur.com/t7u6mUN.png)
 * You will *need to verify your domain to get the shared secret. See the above section ("New verification system") for information on how to do this.
 * The instance secret needs to be set to an even length hexadecimal string. This should be treated as a password.
-  * If you don't know what this means, you can generate an instance secret to use [here](http://jsbin.com/jadofehoqu/1/).
+  * If you don't know what this means or would rather have a tool generate one for you, you can get an instance secret to use [here](http://jsbin.com/jadofehoqu/1/).
 * Save the settings.
 
 Now the addon's link will be available in the profile dropdown. You can use this link to ensure everything is working.

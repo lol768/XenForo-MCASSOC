@@ -1,11 +1,13 @@
-![User card](https://cdn.mediacru.sh/AmoCmQR3lv1J.png)
+![User card](https://i.imgur.com/33fXorY.png)
 
-![Profile page](https://cdn.mediacru.sh/Vf-LjmC7_QqO.png)
+![Profile page](https://i.imgur.com/feJtGsU.png)
 
-![Settings](https://cdn.mediacru.sh/KW9CQvjcs173.png)
+![Settings](https://i.imgur.com/iwNECSl.png)
 
-![Association](https://cdn.mediacru.sh/TRluJI5zL6Yk.png)
+![Association](https://i.imgur.com/a1KtG4p.png)
 
-![Association](https://cdn.mediacru.sh/adXoLS2in8c8.png)
+![Association](https://i.imgur.com/F5zsgUm.png)
 
-![Dropdown](https://cdn.mediacru.sh/_lP_kNTkXhxA.png)
+![Dropdown](https://i.imgur.com/zc4aTYL.png)
+
+![Dark](https://i.imgur.com/gTxnQn7.png)
