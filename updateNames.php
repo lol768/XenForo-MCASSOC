@@ -9,7 +9,7 @@ function grabLatestIgn($uuid) {
     if (strpos($http_response_header[0], "200") === false) {
         ec("Oops, this request failed. I'm going to wait 5 seconds and try again! " . $http_response_header[0]);
         sleep(5);
-        grabLatestIgn($uuid);
+        return grabLatestIgn($uuid);
     }
     return $contents[(count($contents) - 1)]->name;
 }
