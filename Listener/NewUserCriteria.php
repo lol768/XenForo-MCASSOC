@@ -2,7 +2,7 @@
 class AssociationMc_Listener_NewUserCriteria {
 
     public static function hook($hookName, &$contents, array $hookParams, XenForo_Template_Abstract $template) {
-        $myTemplate = new XenForo_Template_Admin("association_custom_criteria");
+        $myTemplate = new XenForo_Template_Admin("association_custom_criteria", $template->getParams());
         $contents .= $myTemplate->render();
     }
 
