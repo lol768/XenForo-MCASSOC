@@ -1,4 +1,9 @@
 <?php
+
+// Note: PunKeel has written another script which makes use of an unofficial API with much more generous
+// rate limiting. PunKeel's script also splits the data into chunks and processes them in separate processes.
+// See https://gist.github.com/PunKeel/9db6232f900899437b17 if this sounds useful.
+
 function ec($msg) {
     echo $msg . PHP_EOL;
 }
