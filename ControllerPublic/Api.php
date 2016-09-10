@@ -6,6 +6,8 @@
  */
 class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstract {
 
+    private $userCache = [];
+
     public function _preDispatch($action) {
         parent::_preDispatch($action);
         $this->_routeMatch->setResponseType('json');
@@ -23,16 +25,19 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     public function actionLookupUserById() {
         $userId = $this->_input->filterSingle('uid', XenForo_Input::UINT);
 
-        $entry = $this->_getAssociationEntryModel()->getEntryById($userId);
-        if (!$entry) {
-            $entry = [];
+        $entries = $this->_getAssociationEntryModel()->getEntriesByUserId($userId);
+        if (!$entries) {
+            $entries = [];
         } else {
-            if (array_key_exists("minecraft_uuid", $entry)) {
-                $entry['minecraft_uuid'] = bin2hex($entry['minecraft_uuid']);
+            foreach ($entries as &$entry) {
+                if (array_key_exists("minecraft_uuid", $entry)) {
+                    $entry['minecraft_uuid'] = bin2hex($entry['minecraft_uuid']);
+                }
+                $this->handleAdditionalInfo($entry);
             }
-            $this->handleAdditionalInfo($entry);
+
         }
-        return $this->responseView('AssociationMc_ViewPublic_Api', '', array("data" => $entry));
+        return $this->responseView('AssociationMc_ViewPublic_Api', '', array("data" => $entries));
     }
 
     public function actionLookupXenforoUser() {
@@ -87,12 +92,15 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     private function handleAdditionalInfo(&$entry) {
         $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
         if ($addInfo) {
-            $entry['user'] = $this->_getUserModel()->getUserById($entry['xenforo_id']);
+            if (array_key_exists($entry['xenforo_id'], $this->userCache)) {
+                $entry['user'] = $this->userCache[$entry['xenforo_id']];
+            } else {
+                $entry['user'] = $this->_getUserModel()->getUserById($entry['xenforo_id']);
+            }
+            $this->userCache[$entry['xenforo_id']] = $entry['user'];
         }
         $entry['last_mc_username'] = $entry['last_username'];
         unset($entry['last_username']);
-
-
     }
 
     /**

@@ -7,25 +7,28 @@ class AssociationMc_ControllerPublic_Delete extends XenForo_ControllerPublic_Abs
 
     public function actionIndex() {
         $visitorId = XenForo_Visitor::getUserId();
-        $this->checkExists($visitorId);
+        $uuid = $this->_input->filterSingle("uuid", XenForo_Input::STRING);
+        $model = $this->checkExists($uuid, $visitorId);
+
         $associationDw = XenForo_DataWriter::create('AssociationMc_DataWriter_AssociationEntry');
-        $associationDw->setExistingData($visitorId);
+        $associationDw->setExistingData($model);
         $associationDw->delete();
         return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, XenForo_Link::buildPublicLink("mc-association/view"));
     }
 
     public function actionDeleteOther() {
         $userId = $this->_input->filterSingle("user_id", XenForo_Input::UINT);
-        $this->checkExists($userId);
+        $uuid = $this->_input->filterSingle("uuid", XenForo_Input::STRING);
+        $model = $this->checkExists($uuid, $userId);
         $visitor = XenForo_Visitor::getInstance();
         $hasPermission = $visitor->hasPermission("mcAssoc", "mcAssocRemoveFromAny") || $visitor->hasAdminPermission("user");
         if (!$hasPermission) {
             throw $this->getNoPermissionResponseException();
         } else {
             $associationDw = XenForo_DataWriter::create('AssociationMc_DataWriter_AssociationEntry');
-            $associationDw->setExistingData($userId);
+            $associationDw->setExistingData($model);
             $associationDw->delete();
-            return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, XenForo_Link::buildAdminLink("users/list"));
+            return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, XenForo_Link::buildAdminLink("users/edit", ['user_id' => $userId]));
         }
 
     }
@@ -39,11 +42,13 @@ class AssociationMc_ControllerPublic_Delete extends XenForo_ControllerPublic_Abs
         return $this->getModelFromCache('AssociationMc_Model_AssociationEntry');
     }
 
-    private function checkExists($visitorId) {
+    private function checkExists($uuid, $visitorId) {
         $model = $this->getAssociationEntryModel();
-        if ($model->getEntryById($visitorId) === false) {
+        $retVal = $model->getEntryByMinecraftUuidAndUserId(hex2bin($uuid), $visitorId);
+        if ($retVal === false) {
             die("No entry exists for this user.");
         }
+        return $retVal;
     }
 
 } 

@@ -41,6 +41,7 @@ class AssociationMc_ControllerPublic_Confirm extends XenForo_ControllerPublic_Ab
             $this->handleData($visitor, $data);
             return $this->responseRedirect(XenForo_ControllerResponse_Redirect::SUCCESS, XenForo_Link::buildPublicLink("mc-association/view"));
         } catch (Exception $e) {
+            XenForo_Error::logException($e, false, "MCAssoc");
             if ($inputData == null) {
                 $message = "No data provided.";
             } else {
@@ -65,8 +66,20 @@ class AssociationMc_ControllerPublic_Confirm extends XenForo_ControllerPublic_Ab
         $associationDw->set('xenforo_id', $visitor->getUserId());
         $associationDw->set('minecraft_uuid', hex2bin($data->uuid));
         $associationDw->set('last_username', $data->username);
+        $threshold = XenForo_Application::get('options')->maxAccountsDisplaySidebar;
+        if ($this->getAssociationEntryModel()->getEntryCountForUserId($visitor->getUserId(), true) >= $threshold) {
+            $associationDw->set("display_by_posts", 0);
+        }
         $associationDw->save();
+    }
 
+    /**
+     * Get our model.
+     *
+     * @return AssociationMc_Model_AssociationEntry
+     */
+    private function getAssociationEntryModel() {
+        return $this->getModelFromCache('AssociationMc_Model_AssociationEntry');
     }
 
     /**

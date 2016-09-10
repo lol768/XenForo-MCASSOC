@@ -7,12 +7,30 @@
 class AssociationMc_Model_AssociationEntry extends XenForo_Model {
 
     /**
-     * Gets an association entry by id.
+     * Gets all association entries by user id.
+     * NB: this returns the raw UUID representation.
+     *
      * @param int $userId The XenForo user id.
      * @return mixed
      */
-    public function getEntryById($userId) {
-        return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE xenforo_id = ? LIMIT 1', $userId);
+    public function getEntriesByUserId($userId, $enforceDisplay=false) {
+        if ($enforceDisplay) {
+            return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts=1', $userId);
+        }
+        return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ?', $userId);
+    }
+
+    /**
+     * @param mixed $uuid Raw binary representation of the uuid
+     * @param int $userId The XenForo user ID
+     * @return array The data
+     */
+    public function getEntryByMinecraftUuidAndUserId($uuid, $userId) {
+        return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE xenforo_id = ? AND minecraft_uuid = ? LIMIT 1', [$userId, $uuid]);
+    }
+
+    public function getEntryByAssociationId($assocId) {
+        return $this->_getDb()->fetchRow('SELECT * FROM xf_association_mc WHERE association_id = ? LIMIT 1', $assocId);
     }
 
     /**
@@ -60,7 +78,14 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE last_username = ?', $username);
     }
 
-    public function getEntryCountForUserId($userId) {
+    public function deleteEntriesByUserIdEfficiently($userId) {
+        $this->_getDb()->delete("xf_association_mc", 'xenforo_id = ' . $this->_getDb()->quote($userId));
+    }
+
+    public function getEntryCountForUserId($userId, $enforceDisplay=false) {
+        if ($enforceDisplay) {
+            return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts = 1 LIMIT 1", $userId);
+        }
         return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? LIMIT 1", $userId);
     }
 } 

@@ -59,8 +59,16 @@ class AssociationMc_ControllerPublic_PrivateMessage extends XFCP_AssociationMc_C
         $model = $this->_getAssociationEntryModel();
         $entries = $model->getEntriesByUserIds($uniqueUserIds, true);
         $names = [];
+        $maxCount = XenForo_Application::get('options')->maxAccountsDisplaySidebar;
         foreach ($entries as $entry) {
-            $names[$entry['xenforo_id']] = $entry['last_username'];
+            if (!array_key_exists($entry['xenforo_id'], $names)) {
+                $names[$entry['xenforo_id']] = [];
+            }
+            // could SELECT instead
+            if (!$entry['display_by_posts'] || count($names[$entry['xenforo_id']]) >= $maxCount) {
+                continue;
+            }
+            $names[$entry['xenforo_id']] = $names[$entry['xenforo_id']] + [$entry['last_username']];
         }
         $view->params['mcNames'] = $names;
         return $view;

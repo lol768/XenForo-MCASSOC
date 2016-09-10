@@ -4,11 +4,16 @@ class AssociationMc_Listener_ProfilePage {
 
     public static function hook($hookName, &$contents, array $hookParams, XenForo_Template_Abstract $template) {
 
+        /** @var AssociationMc_Model_AssociationEntry $model */
         $model = XenForo_Model::create("AssociationMc_Model_AssociationEntry");
-        $entry = $model->getEntryById($hookParams['user']['user_id']);
-        if ($entry != null) {
+        $entries = $model->getEntriesByUserId($hookParams['user']['user_id'], true);
+        if (count($entries) > 0) {
+            foreach ($entries as &$entry) {
+                $entry["title"] = "";
+            }
+            $entries[0]["title"] = "Minecraft:";
             $myTemplate = new XenForo_Template_Public("association_profile_sidebar", array(
-                "mcName" => $entry['last_username']
+                "mcEntries" => $entries
             ));
             $contents .= $myTemplate->render();
         }
