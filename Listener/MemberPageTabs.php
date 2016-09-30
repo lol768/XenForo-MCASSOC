@@ -6,9 +6,9 @@ class AssociationMc_Listener_MemberPageTabs {
 
         /** @var AssociationMc_Model_AssociationEntry $model */
         $model = XenForo_Model::create("AssociationMc_Model_AssociationEntry");
-        $entries = $model->getEntryCountForUserId($hookParams['user']['user_id']);
-        if ($entries > 0) {
-            $myTemplate = new XenForo_Template_Public("association_profile_tab", ["count" => $entries]);
+        $entryCount = $model->getEntryCountForUserId($hookParams['user']['user_id']);
+        if ($entryCount > 0) {
+            $myTemplate = new XenForo_Template_Public("association_profile_tab", ["count" => $entryCount]);
             $contents .= $myTemplate->render();
         }
     }

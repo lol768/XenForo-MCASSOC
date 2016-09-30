@@ -12,6 +12,7 @@ class AssociationMc_Listener_ProfilePage {
                 $entry["title"] = "";
             }
             $entries[0]["title"] = "Minecraft:";
+            AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
             $myTemplate = new XenForo_Template_Public("association_profile_sidebar", array(
                 "mcEntries" => $entries
             ));

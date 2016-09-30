@@ -9,7 +9,9 @@ class AssociationMc_Listener_MemberPageTabContent {
         $entries = $model->getEntryCountForUserId($hookParams['user']['user_id']);
         if ($entries > 0) {
             $myTemplate = new XenForo_Template_Public("association_profile_tab_content", $hookParams);
-            $myTemplate->setParam("mcEntries", $model->getEntriesByUserId($hookParams['user']['user_id']));
+            $entries = $model->getEntriesByUserId($hookParams['user']['user_id']);
+            AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
+            $myTemplate->setParam("mcEntries", $entries);
             $myTemplate->setParam("insecure", XenForo_Application::getOptions()->mcAssocInsecure);
             $contents .= $myTemplate->render();
         }
