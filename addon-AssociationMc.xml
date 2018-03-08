@@ -241,7 +241,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
             <xen:foreach loop="{$mcEntries}" value="$entry">
                 <dl>
                     <dt>{$entry.title}</dt>
-                    <dd><img src="{xen:helper headimage, $entry.last_username, 12}" class="mcAccAvatarLarger"></img> {$entry.last_username}</dd>
+                    <dd><img src="{xen:helper headimage, $entry.minecraft_uuid, 12}" class="mcAccAvatarLarger"></img> {$entry.last_username}</dd>
                 </dl>
             </xen:foreach>
     </dl>
@@ -251,7 +251,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 <p>{$user.username} is associated with the following Minecraft accounts:</p>
 <xen:foreach loop="{$mcEntries}" value="$entry">
     <ul>
-        <li><img src="{xen:helper headimage, $entry.last_username, 12}" class="mcAccAvatarLarger"></img> {$entry.last_username}</li>
+        <li><img src="{xen:helper headimage, $entry.minecraft_uuid, 12}" class="mcAccAvatarLarger"></img> {$entry.last_username}</li>
     </ul>
 </xen:foreach>
 <xen:if is="{$insecure}"><p>You <strong>cannot</strong> be confident that {$user.username} has access to the accounts in question - the site administrator has misconfigured the association add-on.</p></xen:if>
