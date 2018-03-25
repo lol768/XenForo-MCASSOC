@@ -97,13 +97,13 @@
       <relation group_id="associationMcOpts" display_order="1"/>
     </option>
     <option option_id="mcAssocStyleBoxBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
-      <default_value>#176093</default_value>
+      <default_value>#fff</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="62"/>
     </option>
     <option option_id="mcAssocStyleBoxFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
-      <default_value>#fafafa</default_value>
+      <default_value>#000</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="63"/>
@@ -115,19 +115,19 @@
       <relation group_id="associationMcOpts" display_order="64"/>
     </option>
     <option option_id="mcAssocStyleContentFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
-      <default_value>#333</default_value>
+      <default_value>#000</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="65"/>
     </option>
     <option option_id="mcAssocStyleOuterBorderBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
-      <default_value>#2B485C</default_value>
+      <default_value>#6ba65e</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="60"/>
     </option>
     <option option_id="mcAssocStyleOuterBorderFg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
-      <default_value>#eee</default_value>
+      <default_value>#fff</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="61"/>
