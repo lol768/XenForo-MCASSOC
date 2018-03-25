@@ -6,7 +6,7 @@ class AssociationMc_Model_Modifications
                 return $matches[0] .
                         '<xen:if is="!{$mctcopyright}">' .
                         '<xen:set var="$mctcopyright">1</xen:set>' .
-                        '<br/>Some Modificatations by <a href="https://mctrades.org/" title="MCTrades" target="_blank">MCTrades</a>' .
+                        '<br/>Some Modificatations by <a href="https://mctrades.org/" title="MCTrades" target="_blank">MCTrades</a>.' .
                         '</xen:if>';
         }
 }
