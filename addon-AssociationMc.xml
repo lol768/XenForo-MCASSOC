@@ -152,14 +152,14 @@
   </permissions>
   <phrases>
     <phrase title="mc_assoc_admin_criteria_associated" version_id="9" version_string="0.8"><![CDATA[User is associated with a Minecraft account]]></phrase>
-    <phrase title="mc_assoc_admin_criteria_label" version_id="9" version_string="0.8"><![CDATA[Minecraft association]]></phrase>
-    <phrase title="mc_assoc_admin_extra_title" global_cache="1" version_id="9" version_string="0.8"><![CDATA[Minecraft association info]]></phrase>
+    <phrase title="mc_assoc_admin_criteria_label" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association]]></phrase>
+    <phrase title="mc_assoc_admin_extra_title" global_cache="1" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Info]]></phrase>
     <phrase title="mc_assoc_errors_hex_colour" version_id="0" version_string="1.0"><![CDATA[Please enter a valid colour in hexadecimal notation. Examples of acceptable values: #fff, #ffffff]]></phrase>
     <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
     <phrase title="mc_assoc_managing_assoc" version_id="6" version_string="0.6"><![CDATA[Managing Minecraft Association]]></phrase>
     <phrase title="mc_assoc_minecraft_accounts" version_id="14" version_string="1.1"><![CDATA[Minecraft Accounts]]></phrase>
-    <phrase title="mc_assoc_visitor_link" version_id="0" version_string="1.0"><![CDATA[Minecraft association]]></phrase>
-    <phrase title="option_group_associationMcOpts" version_id="0" version_string="1.0"><![CDATA[Minecraft association options]]></phrase>
+    <phrase title="mc_assoc_visitor_link" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association]]></phrase>
+    <phrase title="option_group_associationMcOpts" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Options]]></phrase>
     <phrase title="option_group_associationMcOpts_description" version_id="0" version_string="1.0"><![CDATA[Manages the settings used to communicate with <a href="http://mcassoc.lukegb.com/">MCAssoc</a>.]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar" version_id="14" version_string="1.1"><![CDATA[Max accounts displayable in sidebar]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar_explain" version_id="14" version_string="1.1"><![CDATA[Max number of Minecraft accounts the user can elect to display in the sidebar next to their posts and private messages.]]></phrase>
@@ -215,8 +215,8 @@ Running in insecure mode disables all signature verification, people will be abl
 </dl>
 </div>
 <p class="hint">If necessary, these can be altered easily by editing the config in library/AssociationMc/Utility/WidgetColours.php but they should work in most circumstances.</p>]]></phrase>
-    <phrase title="permission_group_mcAssoc" version_id="9" version_string="0.8"><![CDATA[Minecraft association permissions]]></phrase>
-    <phrase title="permission_interface_mcAssocInterface" version_id="9" version_string="0.8"><![CDATA[Minecraft association permissions]]></phrase>
+    <phrase title="permission_group_mcAssoc" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Permissions]]></phrase>
+    <phrase title="permission_interface_mcAssocInterface" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Permissions]]></phrase>
     <phrase title="permission_mcAssoc_mcAssocRemoveFromAny" version_id="9" version_string="0.8"><![CDATA[Modify association on all users]]></phrase>
   </phrases>
   <route_prefixes>
@@ -247,16 +247,59 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
     </dl>
 </div>]]></template>
     <template title="association_profile_tab" version_id="14" version_string="1.1"><![CDATA[<li><a href="{$requestPaths.requestUri}#minecraftAccounts">{xen:phrase mc_assoc_minecraft_accounts} ({$count})</a></li>]]></template>
-    <template title="association_profile_tab_content" version_id="14" version_string="1.1"><![CDATA[<li id="minecraftAccounts" class="profileContent baseHtml">
-<p>{$user.username} is associated with the following Minecraft accounts:</p>
-<xen:foreach loop="{$mcEntries}" value="$entry">
-    <ul>
-        <li><img src="{xen:helper headimage, $entry.minecraft_uuid, 12}" class="mcAccAvatarLarger"></img> {$entry.last_username}</li>
-    </ul>
-</xen:foreach>
+    <template title="association_profile_tab_content" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="xenforo_member_list_item.css" />
+<xen:require css="association_styling.css" />
+<xen:require css="jf_mc_username.css" />
+<li id="minecraftAccounts" class="profileContent">
+<div class="section">
+<xen:if is="{$mcEntries}">
+	<ol class="overlayScroll">
+	<xen:foreach loop="{$mcEntries}" value="$entry">
+<li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
+
+        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar Av1s" data-avatarhtml="true">
+        <span class="img s mcAccAvatarELARjf" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
+        </a>
+
+	<div class="member">
+	
+		<xen:if is="{$entry.minecraft_uuid}">
+		
+			<h3 class="mcusername"><a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}" title="Associated Account"><span class="style1">{$entry.last_username}</span>
+			</a></h3>
+		
+			<div class="userInfo">
+				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> Minecraft Account</span></div>
+				<dl class="userStats pairsInline">
+					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | <a target="_blank" href="//namemc.com/profile/{$entry.last_username}">NameMC</a> | <a target="_blank" href="//plancke.io/hypixel/player/stats/{$entry.last_username}">Hypixel Statistics</a> | <a target="_blank" href="http:////minecraft.tools/download-skin/{$entry.last_username}">Download Skin</a></dd>
+				</dl>
+			</div>
+			
+		<xen:else />
+			<h3 class="username guest dimmed">Could Not Identify</h3>
+		</xen:if>
+		
+		
+	</div>
+</li>
+	</xen:foreach>
+	</ol>
+<xen:else />
+	<div class="primaryContent">This user does not have any associated Minecraft accounts.</div>
+</xen:if>
+</div>
+	<script>
+	function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+</script>
 <xen:if is="{$insecure}"><p>You <strong>cannot</strong> be confident that {$user.username} has access to the accounts in question - the site administrator has misconfigured the association add-on.</p></xen:if>
 </li>]]></template>
-    <template title="association_styling.css" version_id="14" version_string="1.1"><![CDATA[span.mcAccHeading {
+    <template title="association_styling.css" version_id="15" version_string="1.1.1"><![CDATA[span.mcAccHeading {
     display: block;
     color: #aaa;
     font-size: 9px;
@@ -279,7 +322,15 @@ img.mcAccAvatarLarger {
     width: 12px;
     height: 12px;
 }
-
+		.memberListItem h3.mcusername
+		{
+			{xen:property memberListItemUsername}
+		}
+			
+		.memberListItem .mcusername.guest
+		{
+			{xen:property memberListItemGuest}
+		}
 <xen:if is="{xen:property enableResponsive}">
 @media (max-width:{xen:property maxResponsiveNarrowWidth}) {
     span.mcAccText {
@@ -293,17 +344,19 @@ img.mcAccAvatarLarger {
     }
 }
 </xen:if>]]></template>
-    <template title="association_thread_post" version_id="14" version_string="1.1"><![CDATA[<xen:require css="association_styling.css" />
+    <template title="association_thread_post" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
 <div class="mcAccInfoBlock">
-<span class="mcAccHeading">Minecraft accounts:</span>
+<center>
+<span class="mcAccHeading">Minecraft Accounts:</span>
 <xen:foreach loop="{$mcEntries}" value="$entry">
-<span class="mcAccText"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</span>
+<span class="mcAccText"><a href="//namemc.com/{$entry.minecraft_uuid}"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a></span>
 </xen:foreach>
+</center>
 </div>
 </xen:if>]]></template>
-    <template title="association_view" version_id="14" version_string="1.1"><![CDATA[<xen:require css="association_view.css" />
-<xen:title>Minecraft association</xen:title>
+    <template title="association_view" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_view.css" />
+<xen:title>Minecraft Association</xen:title>
 <xen:if is="{$associated} != true">
     <div class="section">
         <div class="primaryContent">
@@ -317,7 +370,7 @@ img.mcAccAvatarLarger {
             <noscript>You need JS to choose which accounts should show up</noscript>
             <xen:foreach loop="$entries" value="$model">
             <form action="{xen:link 'full:mc-association/delete'}" method="POST">
-            <p><img src="{xen:helper headimage, {$model.last_username}, 12}"> <strong>{$model.last_username}</strong>
+            <p><img src="{xen:helper headimage, {$model.minecraft_uuid}, 12}"> <strong>{$model.last_username}</strong>
 
                 <input type="hidden" value="{$model.minecraft_uuid}" name="uuid">
                 <input class="button" type="submit" value="Remove association" style="display:inline-block;">
@@ -330,7 +383,7 @@ img.mcAccAvatarLarger {
     </div>
 
 </xen:if>
-<iframe id="mcassoc" width="600" height="400" frameBorder="0" seamless scrolling="no" style="margin-top: 20px;"></iframe>
+<center><iframe id="mcassoc" width="600" height="400" frameBorder="0" seamless scrolling="no" style="margin-top: 20px;"></iframe></center>
 <script type="application/javascript">
     <xen:include template="association_mcassoc.js" />
     MCAssoc.init("{xen:raw $siteId}", "{xen:raw $key}", "{xen:raw $retLink}", {xen:raw $safeUsername}, {xen:raw $colours});
@@ -345,7 +398,17 @@ img.mcAccAvatarLarger {
         };
         jQuery.post("{xen:link 'full:mc-association/visibility.json'}", data);
     });
-</script>]]></template>
+</script>
+<xen:sidebar>
+	<div class="section">
+		<div class="secondaryContent">
+                    <h3>Associated Accounts</h3>
+                    <xen:foreach loop="$entries" value="$model">
+                        <p><img src="{xen:helper headimage, {$model.minecraft_uuid}, 12}"> <strong>{$model.last_username}</strong>
+                    </xen:foreach>
+		</div>
+	</div>
+</xen:sidebar>]]></template>
     <template title="association_visitor_left" version_id="9" version_string="0.8"><![CDATA[<li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></template>
     <template title="association_visitor_right" version_id="9" version_string="0.8"><![CDATA[<!-- MCAssoc: feel free to move the link here if you prefer -->]]></template>
   </templates>
@@ -353,6 +416,10 @@ img.mcAccAvatarLarger {
     <modification template="message_user_info" modification_key="add_mc_names_to_thread" description="Adds mcNames variable to template hook for thread" execution_order="10" enabled="1" action="str_replace">
       <find><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'isQuickReply={$isQuickReply}'}">]]></find>
       <replace><![CDATA[<xen:hook name="message_user_info_text" params="{xen:array 'user={$user}', 'mcNames={$mcNames}', 'isQuickReply={$isQuickReply}'}">]]></replace>
+    </modification>
+    <modification template="footer" modification_key="mctrades_copyrightNotice_AssociationMc" description="Copyright Notice for MCTrades AssociationMc" execution_order="10" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[AssociationMc_Model_Modifications::copyrightNotice]]></replace>
     </modification>
   </public_template_modifications>
   <bb_code_media_sites/>
