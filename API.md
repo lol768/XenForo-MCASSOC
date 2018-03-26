@@ -11,7 +11,7 @@ Available functionality
 Send a request to:
 
 ````
-mc-association/api/lookupUserById&uid=:uid&token=:token&userInfo=:userInfo
+mc-association/api/lookupUserById?uid=:uid&securitytoken=:token&userInfo=:userInfo
 ````
 
 Where uid is the user's **XenForo** user id, the token is the token set in the xenForo settings and :userinfo is a boolean representing whether additional user information should also be returned.
@@ -19,7 +19,7 @@ Where uid is the user's **XenForo** user id, the token is the token set in the x
 Example requests:
 
 ````javascript
-/* Request to mc-association/api/lookupUserById&uid=1&token=abc&userInfo=true */
+/* Request to mc-association/api/lookupUserById?uid=1&securitytoken=abc&userInfo=true */
 {
 
     "xenforo_id": 1,
@@ -62,7 +62,7 @@ Example requests:
 ````
 
 ````javascript
-/* Request to mc-association/api/lookupUserById&uid=1&token=abc */
+/* Request to mc-association/api/lookupUserById?uid=1&securitytoken=abc */
 {
 
     "xenforo_id": 1,
@@ -83,7 +83,7 @@ Example requests:
 Send a request to:
 
 ````
-mc-association/api/lookupUserByUuid&uuid=:uuid&token=:token&userInfo=:userInfo
+mc-association/api/lookupUserByUuid?uuid=:uuid&securitytoken=:token&userInfo=:userInfo
 ````
 
 Where :uuid is the user's **Minecraft** UUID in hexadecimal notation without hyphens, :token is the token set in the XenForo settings and :userInfo is a boolean representing whether additional user information should also be returned.
@@ -91,7 +91,7 @@ Where :uuid is the user's **Minecraft** UUID in hexadecimal notation without hyp
 Example requests:
 
 ````javascript
-/* Request to mc-association/api/lookupUserByUuid&uuid=34648d5df7b94f7289d19b63e7b3ecbb&userInfo=true&token=abc */
+/* Request to mc-association/api/lookupUserByUuid?uuid=34648d5df7b94f7289d19b63e7b3ecbb&userInfo=true&token=abc */
 {
 
     "xenforo_id": 1,
@@ -134,7 +134,7 @@ Example requests:
 ````
 
 ````javascript
-/* Request to mc-association/api/lookupUserByUuid&uuid=34648d5df7b94f7289d19b63e7b3ecbb&token=abc */
+/* Request to mc-association/api/lookupUserByUuid?uuid=34648d5df7b94f7289d19b63e7b3ecbb&token=abc */
 {
 
     "xenforo_id": 1,
@@ -149,7 +149,7 @@ Example requests:
 Send a request to:
 
 ````
-mc-association/api/lookupXenforoUser&token=:token&username=:username
+mc-association/api/lookupXenforoUser?securitytoken=:token&username=:username
 ````
 
 Where :username is the **XenForo username** and :token is the token set in the XenForo settings. This is mostly provided for convenience so you can use the id-based association endpoint afterwards.
@@ -198,7 +198,7 @@ Example request:
 Send a request to:
 
 ````
-mc-association/api/listAll&token=:token&userInfo=:userInfo
+mc-association/api/listAll?securitytoken=:token&userInfo=:userInfo
 ````
 
 Where :token is the token set in the XenForo settings. userInfo is a boolean that specifies whether to retrieve more user info. In this context, last_username is the last **Minecraft** username. username is the **XenForo** username.
@@ -207,7 +207,7 @@ Example request:
 
 ````javascript
 {
-/* Request to mc-association/api/listAll&token=abc&userInfo=true */
+/* Request to mc-association/api/listAll?securitytoken=abc&userInfo=true */
     "0": {
         "xenforo_id": 1,
         "last_username": "lol768",
@@ -254,7 +254,7 @@ Example request:
 
 ````javascript
 {
-/* Request to mc-association/api/listAll&token=abc */
+/* Request to mc-association/api/listAll?securitytoken=abc */
 {
     "0": {
         "xenforo_id": 1,
