@@ -138,6 +138,18 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="66"/>
     </option>
+    <option option_id="mctrades_mastertoken" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
+    <option option_id="mctrades_mastertoken_enable" edit_format="onoff" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
   </optiongroups>
   <permissions>
     <permission_groups>
@@ -215,6 +227,10 @@ Running in insecure mode disables all signature verification, people will be abl
 </dl>
 </div>
 <p class="hint">If necessary, these can be altered easily by editing the config in library/AssociationMc/Utility/WidgetColours.php but they should work in most circumstances.</p>]]></phrase>
+    <phrase title="option_mctrades_mastertoken" version_id="15" version_string="1.1.1"><![CDATA[Master Token]]></phrase>
+    <phrase title="option_mctrades_mastertoken_enable" version_id="15" version_string="1.1.1"><![CDATA[Enable Master Token]]></phrase>
+    <phrase title="option_mctrades_mastertoken_enable_explain" version_id="15" version_string="1.1.1"><![CDATA[Check to enable master token]]></phrase>
+    <phrase title="option_mctrades_mastertoken_explain" version_id="15" version_string="1.1.1"><![CDATA[Separate with "=> ". Provides access to sensitive data.]]></phrase>
     <phrase title="permission_group_mcAssoc" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Permissions]]></phrase>
     <phrase title="permission_interface_mcAssocInterface" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Permissions]]></phrase>
     <phrase title="permission_mcAssoc_mcAssocRemoveFromAny" version_id="9" version_string="0.8"><![CDATA[Modify association on all users]]></phrase>
