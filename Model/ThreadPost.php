@@ -18,7 +18,7 @@ class AssociationMc_Model_ThreadPost extends XenForo_Model {
             return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts=1', $userId);
         }
         $maxCount = XenForo_Application::get('options')->maxAccountsDisplaySidebar;
-        return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ? LIMIT ?', $userId, $maxCount);
+        return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ? LIMIT ?', array($userId, $maxCount));
     }
 
     /**
