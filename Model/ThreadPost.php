@@ -25,6 +25,6 @@ class AssociationMc_Model_ThreadPost extends XenForo_Model {
         if ($enforceDisplay) {
             return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts = 1 LIMIT 1", $userId);
         }
-        return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? LIMIT 1", $userId);
+        return $this->_getDb()->fetchOne("SELECT COUNT(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts = 1 LIMIT 1", $userId);
     }
 }
