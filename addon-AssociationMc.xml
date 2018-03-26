@@ -363,12 +363,10 @@ img.mcAccAvatarLarger {
     <template title="association_thread_post" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
 <div class="mcAccInfoBlock">
-<center>
 <span class="mcAccHeading">Minecraft Accounts:</span>
 <xen:foreach loop="{$mcEntries}" value="$entry">
 <span class="mcAccText"><a href="//namemc.com/{$entry.minecraft_uuid}"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a></span>
 </xen:foreach>
-</center>
 </div>
 </xen:if>]]></template>
     <template title="association_view" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_view.css" />
