@@ -11,16 +11,6 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     public function _preDispatch($action) {
         parent::_preDispatch($action);
         $this->_routeMatch->setResponseType('json');
-	session_start();
-	if (isset($_SESSION['LAST_CALL'])) {
-		$lasttime = strtotime($_SESSION['LAST_CALL']);
-		$currenttime = strtotime(date("Y-m-d h:i:s"));
-		$seconds =  abs($lasttime - $currenttime);
-		if ($seconds <= 3) {
-			throw new XenForo_Exception('Rate Limit Exceeded' . $seconds . '/' . '3', true);
-		}
-	}
-	$_SESSION['LAST_CALL'] = date("Y-m-d h:i:s");
 	if (!$_SERVER['HTTP_USER_AGENT']) {
 		throw new XenForo_Exception('User-Agent Required', true);
 	}
@@ -28,7 +18,7 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
         if (!$opts->mcAssocApiEnable) {
             throw new XenForo_Exception('API Temporarily Unavailable', true);
         } else {
-            $token = $this->_input->filterSingle('securitytoken', XenForo_Input::STRING);
+            $token = $this->_input->filterSingle('token', XenForo_Input::STRING);
 	    if (!in_array($token, explode("=> ", $opts->mcAssocApiToken))) {
                 throw new XenForo_Exception('Invalid Token', true);
             }
@@ -54,11 +44,6 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     }
 
     public function actionLookupXenforoUser() {
-        $opts = XenForo_Application::get('options');
-        $master = $this->_input->filterSingle('master', XenForo_Input::STRING);
-        if (!in_array($master, explode("=> ", $opts->mctrades_mastertoken)) || !$opts->mctrades_mastertoken_enable) {
-		throw new XenForo_Exception('Token Security Clearance Too Low', true);
-	}
         $username = $this->_input->filterSingle('username', XenForo_Input::STRING);
         $user = $this->_getUserModel()->getUserByName($username);
         if (!$user) {
@@ -70,11 +55,6 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     }
 
     public function actionListAll() {
-        $opts = XenForo_Application::get('options');
-        $master = $this->_input->filterSingle('master', XenForo_Input::STRING);
-	if (!in_array($master, explode("=> ", $opts->mctrades_mastertoken)) || !$opts->mctrades_mastertoken_enable) {
-        	throw new XenForo_Exception('Token Security Clearance Too Low', true);
-        }
         $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
         $entries = $this->_getAssociationEntryModel()->getAll();
         $ids = [];
@@ -112,10 +92,8 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     }
 
     private function handleAdditionalInfo(&$entry) {
-        $opts = XenForo_Application::get('options');
-        $master = $this->_input->filterSingle('master', XenForo_Input::STRING);
         $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
-        if ($addInfo && in_array($master, explode("=> ", $opts->mctrades_mastertoken)) && $opts->mctrades_mastertoken_enable) {
+        if ($addInfo) {
             if (array_key_exists($entry['xenforo_id'], $this->userCache)) {
                 $entry['user'] = $this->userCache[$entry['xenforo_id']];
             } else {
