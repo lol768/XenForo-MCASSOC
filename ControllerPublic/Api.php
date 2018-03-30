@@ -19,7 +19,7 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
             throw new XenForo_Exception('API Temporarily Unavailable', true);
         } else {
             $token = $this->_input->filterSingle('token', XenForo_Input::STRING);
-	    if (!in_array($token, explode("=> ", $opts->mcAssocApiToken))) {
+	    if ($token != $opts->mcAssocApiToken) {
                 throw new XenForo_Exception('Invalid Token', true);
             }
         }
