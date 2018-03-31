@@ -233,7 +233,7 @@ Running in insecure mode disables all signature verification, people will be abl
         <p>Additional details: {xen:raw $exceptionMessage}</p>
     </div>
 </div>]]></template>
-    <template title="association_mcassoc.js" version_id="0" version_string="1.0"><![CDATA[/*! Written by lukegb. See https://github.com/lukegb/mcassoc.php */
+    <template title="association_mcassoc.js" version_id="17" version_string="1.1.3"><![CDATA[/*! Written by lukegb. See https://github.com/lukegb/mcassoc.php */
 var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.init=function(e,n,r,i,s){t=document.getElementById("mcassoc");i=i||null;this.url=this.baseurl+"perform?";var o={siteid:e,key:n,postback:r,mcusername:i};if(s!=null){o["c:bdr:b"]=s.borderBg;o["c:bdr:t"]=s.borderFg;o["c:box:b"]=s.boxBg;o["c:box:t"]=s.boxFg;o["c:mn:b"]=s.contentBg;o["c:mn:t"]=s.contentFg}var u="";for(var a in o){if(!o.hasOwnProperty(a))continue;var f=o[a];if(f){if(u!="")u+="&";u+=encodeURIComponent(a)+"="+encodeURIComponent(f)}}this.url+=u;t.src=this.url};return e}()]]></template>
     <template title="association_profile_sidebar" version_id="14" version_string="1.1"><![CDATA[<xen:require css="association_styling.css" />
 <div class="section infoBlock">
@@ -247,9 +247,8 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
     </dl>
 </div>]]></template>
     <template title="association_profile_tab" version_id="14" version_string="1.1"><![CDATA[<li><a href="{$requestPaths.requestUri}#minecraftAccounts">{xen:phrase mc_assoc_minecraft_accounts} ({$count})</a></li>]]></template>
-    <template title="association_profile_tab_content" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="xenforo_member_list_item.css" />
+    <template title="association_profile_tab_content" version_id="17" version_string="1.1.3"><![CDATA[<xen:require css="xenforo_member_list_item.css" />
 <xen:require css="association_styling.css" />
-<xen:require css="jf_mc_username.css" />
 <li id="minecraftAccounts" class="profileContent">
 <div class="section">
 <xen:if is="{$mcEntries}">
@@ -257,8 +256,8 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar Av1s" data-avatarhtml="true">
-        <span class="img s mcAccAvatarELARjf" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
+        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar" data-avatarhtml="true">
+        <span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
         </a>
 
 	<div class="member">
@@ -271,7 +270,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 			<div class="userInfo">
 				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> Minecraft Account</span></div>
 				<dl class="userStats pairsInline">
-					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | <a target="_blank" href="//namemc.com/profile/{$entry.last_username}">NameMC</a> | <a target="_blank" href="//plancke.io/hypixel/player/stats/{$entry.last_username}">Hypixel Statistics</a> | <a target="_blank" href="http:////minecraft.tools/download-skin/{$entry.last_username}">Download Skin</a></dd>
+					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | <a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}">NameMC</a> | <a target="_blank" href="//plancke.io/hypixel/player/stats/{$entry.last_username}">Hypixel Statistics</a> | <a target="_blank" href="http:////minecraft.tools/download-skin/{$entry.last_username}">Download Skin</a></dd>
 				</dl>
 			</div>
 			
@@ -353,7 +352,7 @@ img.mcAccAvatarLarger {
 </xen:foreach>
 </div>
 </xen:if>]]></template>
-    <template title="association_view" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_view.css" />
+    <template title="association_view" version_id="17" version_string="1.1.3"><![CDATA[<xen:require css="association_view.css" />
 <xen:title>Minecraft Association</xen:title>
 <xen:if is="{$associated} != true">
     <div class="section">
@@ -366,22 +365,23 @@ img.mcAccAvatarLarger {
         <div class="baseHtml">
             <p>You appear to be associated with the accounts listed below. You can choose up to <strong>{$maxDisplayable}</strong> to display next to your posts.</p>
             <noscript>You need JS to choose which accounts should show up</noscript>
+            <xen:if is="{$entries}">
             <xen:foreach loop="$entries" value="$model">
             <form action="{xen:link 'full:mc-association/delete'}" method="POST">
             <p><img src="{xen:helper headimage, {$model.minecraft_uuid}, 12}"> <strong>{$model.last_username}</strong>
 
                 <input type="hidden" value="{$model.minecraft_uuid}" name="uuid">
-                <input class="button" type="submit" value="Remove association" style="display:inline-block;">
+                <input class="button" type="submit" value="Remove Association" style="display:inline-block;">
                 <input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" /></p>
             </form>
-            <label><input type="checkbox" data-id="{$model.association_id}" class="visibilityToggle" <xen:if is="{$model.display_by_posts}">checked</xen:if>> Display next to posts</label>
-            </xen:foreach>
-            <p>If you wish, you can associate further Minecraft accounts to your forums account. To do so, fill in the form below.
+            <label><input type="checkbox" data-id="{$model.association_id}" class="visibilityToggle" <xen:if is="{$model.display_by_posts}">checked</xen:if>> Display Next to Posts</label>
+            </xen:foreach></xen:if>
+            <p>If you would like to, you may associate additional Minecraft accounts in the form below.
         </div>
     </div>
 
 </xen:if>
-<center><iframe id="mcassoc" width="600" height="400" frameBorder="0" seamless scrolling="no" style="margin-top: 20px;"></iframe></center>
+<div style="display: flex; align-items: center; justify-content: center;"><iframe id="mcassoc" width="600" height="400" frameBorder="0" seamless scrolling="no" style="margin-top: 20px;"></iframe></div>
 <script type="application/javascript">
     <xen:include template="association_mcassoc.js" />
     MCAssoc.init("{xen:raw $siteId}", "{xen:raw $key}", "{xen:raw $retLink}", {xen:raw $safeUsername}, {xen:raw $colours});
