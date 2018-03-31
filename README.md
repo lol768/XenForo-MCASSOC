@@ -23,7 +23,7 @@ Features
 * Easy to install.
 * Works in conversations/private messages.
 
-New verification system
+New Verification System
 -----------------------
 
 **Now setting up the addon is easier than ever!**
@@ -76,3 +76,7 @@ Now the install is done and you should see the addon in your addons list. It's t
 
 Now the addon's link will be available in the profile dropdown. You can use this link to ensure everything is working.
 Try associating your account. You should then be able to see the avatar in all your posts and on your profile page.
+
+Updating Usernames
+----------
+Navigate into the `library/Association` folder and execute command `php -f updateNames.php`. For large installations, this may take a long time and it's recommended to run it within a separate window.
