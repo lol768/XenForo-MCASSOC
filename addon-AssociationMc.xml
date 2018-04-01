@@ -256,7 +256,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar" data-avatarhtml="true">
+        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar" data-avatarhtml="true" target="_blank">
         <span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
         </a>
 
@@ -264,7 +264,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	
 		<xen:if is="{$entry.minecraft_uuid}">
 		
-			<h3 class="mcusername"><a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}" title="Associated Account"><span class="style1">{$entry.last_username}</span>
+			<h3 class="mcusername"><a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}" title="Associated Account" target="_blank"><span class="style1">{$entry.last_username}</span>
 			</a></h3>
 		
 			<div class="userInfo">
@@ -348,7 +348,7 @@ img.mcAccAvatarLarger {
 <div class="mcAccInfoBlock">
 <span class="mcAccHeading">Minecraft Accounts:</span>
 <xen:foreach loop="{$mcEntries}" value="$entry">
-<span class="mcAccText"><a href="//namemc.com/{$entry.minecraft_uuid}"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a></span>
+<span class="mcAccText"><a href="//namemc.com/{$entry.minecraft_uuid}" target="_blank"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a></span>
 </xen:foreach>
 </div>
 </xen:if>]]></template>
