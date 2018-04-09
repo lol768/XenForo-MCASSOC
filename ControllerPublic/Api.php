@@ -11,13 +11,16 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     public function _preDispatch($action) {
         parent::_preDispatch($action);
         $this->_routeMatch->setResponseType('json');
+	if (!$_SERVER['HTTP_USER_AGENT']) {
+		throw new XenForo_Exception('User-Agent Required', true);
+	}
         $opts = XenForo_Application::get('options');
         if (!$opts->mcAssocApiEnable) {
-            throw $this->getNoPermissionResponseException();
+            throw new XenForo_Exception('API Temporarily Unavailable', true);
         } else {
             $token = $this->_input->filterSingle('token', XenForo_Input::STRING);
-            if ($token != $opts->mcAssocApiToken) {
-                throw $this->getNoPermissionResponseException();
+	    if ($token !== $opts->mcAssocApiToken) {
+                throw new XenForo_Exception('Invalid Token', true);
             }
         }
     }
@@ -42,7 +45,6 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
 
     public function actionLookupXenforoUser() {
         $username = $this->_input->filterSingle('username', XenForo_Input::STRING);
-
         $user = $this->_getUserModel()->getUserByName($username);
         if (!$user) {
             $data = array("data" => []);
@@ -53,9 +55,9 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     }
 
     public function actionListAll() {
+        $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
         $entries = $this->_getAssociationEntryModel()->getAll();
         $ids = [];
-        $addInfo = $this->_input->filterSingle('userInfo', XenForo_Input::BOOLEAN);
         foreach ($entries as $entry) {
             $ids[] = $entry['xenforo_id'];
         }
