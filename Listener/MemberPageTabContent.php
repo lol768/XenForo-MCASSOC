@@ -13,6 +13,7 @@ class AssociationMc_Listener_MemberPageTabContent {
             AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
             $myTemplate->setParam("mcEntries", $entries);
             $myTemplate->setParam("insecure", XenForo_Application::getOptions()->mcAssocInsecure);
+            $myTemplate->setParam("addInfo", XenForo_Application::getOptions()->mcAssocAddInfoEnable);
             $contents .= $myTemplate->render();
         }
     }
