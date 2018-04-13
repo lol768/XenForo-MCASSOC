@@ -272,16 +272,16 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar" data-avatarhtml="true" target="_blank">
-        <span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
-        </a>
+        <xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if>
+        <a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a>
+        <xen:if is="{$addInfo}"></a></xen:if>
 
 	<div class="member">
 	
 		<xen:if is="{$entry.minecraft_uuid}">
 		
-			<h3 class="mcusername"><a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}" title="Associated Account" target="_blank"><span class="style1">{$entry.last_username}</span>
-			</a></h3>
+			<h3 class="mcusername"><xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if><span class="style1">{$entry.last_username}</span>
+			<xen:if is="{$addInfo}"></a></xen:if></h3>
 		
 			<div class="userInfo">
 				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> Minecraft Account</span></div>
