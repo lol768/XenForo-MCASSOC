@@ -6,7 +6,7 @@ class AssociationMc_Helpers_AdditionalInfo {
         $opts = XenForo_Application::get('options');
         $url = $opts->mcAssocAddInfoUrl;
         $url = str_replace(["%name", "%uuid"], [$username, $uuid], $url);
-        return "<a href=\"" . $url . "\" target=\"_blank\">";
+        return "<a href=\"" . htmlentities($url) . "\" target=\"_blank\">";
     }
 
 }
