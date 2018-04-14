@@ -61,7 +61,7 @@
       <relation group_id="associationMcOpts" display_order="1"/>
     </option>
     <option option_id="mcAssocAddInfoUrl" edit_format="textbox" data_type="string" can_backup="1">
-      <default_value>//namemc.com/name/%uuid</default_value>
+      <default_value>https://namemc.com/name/%uuid</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="1"/>
