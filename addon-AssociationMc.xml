@@ -54,6 +54,18 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="100"/>
     </option>
+    <option option_id="mcAssocAddInfoEnable" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
+    <option option_id="mcAssocAddInfoUrl" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value>https://namemc.com/name/%uuid</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
     <option option_id="mcAssocApiEnable" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value></default_value>
       <edit_format_params></edit_format_params>
@@ -163,6 +175,10 @@
     <phrase title="option_group_associationMcOpts_description" version_id="0" version_string="1.0"><![CDATA[Manages the settings used to communicate with <a href="http://mcassoc.lukegb.com/">MCAssoc</a>.]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar" version_id="14" version_string="1.1"><![CDATA[Max accounts displayable in sidebar]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar_explain" version_id="14" version_string="1.1"><![CDATA[Max number of Minecraft accounts the user can elect to display in the sidebar next to their posts and private messages.]]></phrase>
+    <phrase title="option_mcAssocAddInfoEnable" version_id="17" version_string="1.1.3"><![CDATA[Enable Additional Information URL]]></phrase>
+    <phrase title="option_mcAssocAddInfoEnable_explain" version_id="17" version_string="1.1.3"><![CDATA[Enable to have association listings have the below link.]]></phrase>
+    <phrase title="option_mcAssocAddInfoUrl" version_id="17" version_string="1.1.3"><![CDATA[Additional Information URL]]></phrase>
+    <phrase title="option_mcAssocAddInfoUrl_explain" version_id="17" version_string="1.1.3"><![CDATA[Defines if a link should be added to association lists.<br />%name - Minecraft Username &mdash; %uuid - Minecraft UUID]]></phrase>
     <phrase title="option_mcAssocApiEnable" version_id="7" version_string="0.6.1"><![CDATA[Enable API]]></phrase>
     <phrase title="option_mcAssocApiEnable_explain" version_id="7" version_string="0.6.1"><![CDATA[Whether or not you wish to enable the JSON-based AssociationMc API.]]></phrase>
     <phrase title="option_mcAssocApiToken" version_id="7" version_string="0.6.1"><![CDATA[API Token]]></phrase>
@@ -256,16 +272,16 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <a href="//namemc.com/profile/{$entry.minecraft_uuid}" class="avatar" data-avatarhtml="true" target="_blank">
-        <span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span>
-        </a>
+        <xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}
+        <a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a>
+        </a><xen:else/><a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a></xen:if>
 
 	<div class="member">
 	
 		<xen:if is="{$entry.minecraft_uuid}">
 		
-			<h3 class="mcusername"><a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}" title="Associated Account" target="_blank"><span class="style1">{$entry.last_username}</span>
-			</a></h3>
+			<h3 class="mcusername"><xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if><span class="style1">{$entry.last_username}</span>
+			<xen:if is="{$addInfo}"></a></xen:if></h3>
 		
 			<div class="userInfo">
 				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> Minecraft Account</span></div>
@@ -343,12 +359,12 @@ img.mcAccAvatarLarger {
     }
 }
 </xen:if>]]></template>
-    <template title="association_thread_post" version_id="15" version_string="1.1.1"><![CDATA[<xen:require css="association_styling.css" />
+    <template title="association_thread_post" version_id="17" version_string="1.1.3"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
 <div class="mcAccInfoBlock">
 <span class="mcAccHeading">Minecraft Accounts:</span>
 <xen:foreach loop="{$mcEntries}" value="$entry">
-<span class="mcAccText"><a href="//namemc.com/{$entry.minecraft_uuid}" target="_blank"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a></span>
+<span class="mcAccText"><xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}<xen:if is="{$addInfo}"></a></xen:if></span>
 </xen:foreach>
 </div>
 </xen:if>]]></template>
