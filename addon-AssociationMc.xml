@@ -272,9 +272,9 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if>
+        <xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}
         <a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a>
-        <xen:if is="{$addInfo}"></a></xen:if>
+        </a><xen:else/><a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a></xen:if>
 
 	<div class="member">
 	
