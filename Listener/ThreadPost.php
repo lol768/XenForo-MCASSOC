@@ -12,7 +12,6 @@ class AssociationMc_Listener_ThreadPost {
             $entries = $model->getEntriesByUserId($hookParams['user']['user_id']);
             AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
             $myTemplate->setParam("mcEntries", $entries);
-            $myTemplate->setParam("insecure", XenForo_Application::getOptions()->mcAssocInsecure);
             $myTemplate->setParam("addInfo", XenForo_Application::getOptions()->mcAssocAddInfoEnable);
             $contents .= $myTemplate->render();
         }
