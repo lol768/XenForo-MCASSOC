@@ -19,6 +19,13 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         }
         return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE xenforo_id = ?', $userId);
     }
+    
+    public function getEntriesDecodedByUserId($userId, $enforceDisplay=false) {
+        if ($enforceDisplay) {
+            return $this->_getDb()->fetchAll('SELECT *, HEX(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ? AND display_by_posts=1', $userId);
+        }
+        return $this->_getDb()->fetchAll('SELECT *, HEX(minecraft_uuid) FROM xf_association_mc WHERE xenforo_id = ?', $userId);
+    }
 
     /**
      * @param mixed $uuid Raw binary representation of the uuid
