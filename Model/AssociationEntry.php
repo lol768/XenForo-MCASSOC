@@ -84,6 +84,12 @@ class AssociationMc_Model_AssociationEntry extends XenForo_Model {
         }
         return $this->_getDb()->fetchAll('SELECT * FROM xf_association_mc WHERE last_username = ?', $username);
     }
+    public function getEntriesDecodedByUsername($username) {
+        if (strlen($username) > 16 || strlen($username) < 1) {
+            throw new AssociationMc_InvalidUsernameException("Username length is invalid.");
+        }
+        return $this->_getDb()->fetchAll('SELECT *, HEX(minecraft_uuid) FROM xf_association_mc WHERE last_username = ?', $username);
+    }
 
     public function deleteEntriesByUserIdEfficiently($userId) {
         $this->_getDb()->delete("xf_association_mc", 'xenforo_id = ' . $this->_getDb()->quote($userId));
