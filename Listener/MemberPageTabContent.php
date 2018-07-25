@@ -15,6 +15,7 @@ class AssociationMc_Listener_MemberPageTabContent {
             $myTemplate->setParam("mcEntries", $entries);
             $myTemplate->setParam("insecure", $opts->mcAssocInsecure);
             $myTemplate->setParam("addInfo", $opts->mcAssocAddInfo);
+            $myTemplate->setParam("skinDownload", $opts->mcAssocSkinDownload);
             $contents .= $myTemplate->render();
         }
     }
