@@ -2,11 +2,11 @@
 
 class AssociationMc_Helpers_AdditionalInfo {
 
-    public static function helperGetAdditionalInfoUrl($username=NULL, $uuid=NULL) {
+    public static function helperGetAdditionalInfoUrl($username="", $uuid="") {
         $opts = XenForo_Application::get('options');
-        $url = $opts->mcAssocAddInfoUrl;
+        $url = $opts->mcAssocAddInfo['url'];
         $url = str_replace(["%name", "%uuid"], [$username, $uuid], $url);
-        return "<a href=\"" . htmlentities($url) . "\" target=\"_blank\">";
+        return htmlentities($url);
     }
 
 }

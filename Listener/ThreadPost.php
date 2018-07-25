@@ -9,11 +9,12 @@ class AssociationMc_Listener_ThreadPost {
         $entries = $model->getEntryCountForUserId($hookParams['user']['user_id']);
         if ($entries > 0) {
             $myTemplate = new XenForo_Template_Public("association_thread_post", $hookParams);
+            $opts = XenForo_Application::getOptions();
             $entries = $model->getEntriesByUserId($hookParams['user']['user_id']);
             AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
             $myTemplate->setParam("mcEntries", $entries);
-            $myTemplate->setParam("insecure", XenForo_Application::getOptions()->mcAssocInsecure);
-            $myTemplate->setParam("addInfo", XenForo_Application::getOptions()->mcAssocAddInfoEnable);
+            $myTemplate->setParam("insecure", $opts->mcAssocInsecure);
+            $myTemplate->setParam("addInfo", $opts->mcAssocAddInfo);
             $contents .= $myTemplate->render();
         }
     }
