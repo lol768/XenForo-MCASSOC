@@ -304,7 +304,7 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 			<div class="userInfo">
 				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> {xen:phrase mc_assoc_minecraft_account}</span></div>
 				<dl class="userStats pairsInline">
-					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | <a target="_blank" href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}">Additional Information</a> {xen:if '{$skinDownload.enabled}', '| <a target="_blank" href="{xen:helper additionalinfo, $skinDownload.url, $entry.last_username, $entry.minecraft_uuid}" download>Download Skin</a>'}</dd>
+					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | {xen:if '{$addInfo.enabled}', '| <a target="_blank" href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}" download>Download Skin</a>'} {xen:if '{$skinDownload.enabled}', '| <a target="_blank" href="{xen:helper additionalinfo, $skinDownload.url, $entry.last_username, $entry.minecraft_uuid}" download>Download Skin</a>'}</dd>
 				</dl>
 			</div>
 			
