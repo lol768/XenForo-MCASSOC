@@ -10,7 +10,7 @@ class AssociationMc_Listener_ThreadPost {
         if ($entries > 0) {
             $myTemplate = new XenForo_Template_Public("association_thread_post", $hookParams);
             $opts = XenForo_Application::getOptions();
-            $entries = $model->getEntriesByUserId($hookParams['user']['user_id']);
+            $entries = $model->getEntriesByUserId($hookParams['user']['user_id'], true);
             AssociationMc_Utility_BinaryTransformation::convertEntriesToHumanReadableUuids($entries);
             $myTemplate->setParam("mcEntries", $entries);
             $myTemplate->setParam("insecure", $opts->mcAssocInsecure);
