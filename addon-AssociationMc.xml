@@ -381,7 +381,7 @@ img.mcAccAvatarLarger {
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
 <div class="mcAccInfoBlock">
 <span class="mcAccHeading">{xen:phrase mc_assoc_minecraft_accounts}:</span>
-<xen:foreach loop="{$mcEntries}" value="$entry">
+<xen:foreach loop="{$mcNames.{$user.user_id}}" value="$entry">
 <span class="mcAccText">
 <xen:if is="{$addInfo.enabled}">
 <a href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}" target="_blank"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a>
