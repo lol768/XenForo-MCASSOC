@@ -50,7 +50,8 @@ class AssociationMc_ControllerPublic_Thread extends XFCP_AssociationMc_Controlle
         $model = $this->_getAssociationEntryModel();
         $entries = $model->getEntriesByUserIds($uniqueUserIds, true);
         $names = [];
-        $maxCount = XenForo_Application::get('options')->maxAccountsDisplaySidebar;
+        $opts = XenForo_Application::get('options');
+        $maxCount = $opts->maxAccountsDisplaySidebar;
 
         foreach ($entries as $entry) {
             if (!array_key_exists($entry['xenforo_id'], $names)) {
@@ -66,6 +67,7 @@ class AssociationMc_ControllerPublic_Thread extends XFCP_AssociationMc_Controlle
             );
         }
         $view->params['mcNames'] = $names;
+        $view->params['addInfo'] = $opts->mcAssocAddInfo;
         return $view;
     }
 
