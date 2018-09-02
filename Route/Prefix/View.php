@@ -27,6 +27,9 @@ class AssociationMc_Route_Prefix_View implements XenForo_Route_Interface {
             case "visibility":
                 $controller = "VisibilityManagement";
                 break;
+            case "search":
+                $controller = "Search";
+                break;
             case 'view':
             default:
                 $controller = 'View';

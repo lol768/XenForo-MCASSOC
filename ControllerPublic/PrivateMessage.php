@@ -68,7 +68,10 @@ class AssociationMc_ControllerPublic_PrivateMessage extends XFCP_AssociationMc_C
             if (!$entry['display_by_posts'] || count($names[$entry['xenforo_id']]) >= $maxCount) {
                 continue;
             }
-            $names[$entry['xenforo_id']] = $names[$entry['xenforo_id']] + [$entry['last_username']];
+            $names[$entry['xenforo_id']][] = array(
+                'minecraft_uuid' => bin2hex($entry['minecraft_uuid']),
+                'last_username' => $entry['last_username']
+            );
         }
         $view->params['mcNames'] = $names;
         return $view;

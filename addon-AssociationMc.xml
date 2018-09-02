@@ -54,17 +54,14 @@
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="100"/>
     </option>
-    <option option_id="mcAssocAddInfoEnable" edit_format="onoff" data_type="boolean" can_backup="1">
-      <default_value>1</default_value>
-      <edit_format_params></edit_format_params>
-      <sub_options></sub_options>
-      <relation group_id="associationMcOpts" display_order="1"/>
-    </option>
-    <option option_id="mcAssocAddInfoUrl" edit_format="textbox" data_type="string" can_backup="1">
-      <default_value>https://namemc.com/name/%uuid</default_value>
-      <edit_format_params></edit_format_params>
-      <sub_options></sub_options>
-      <relation group_id="associationMcOpts" display_order="1"/>
+    <option option_id="mcAssocAddInfo" edit_format="onofftextbox" data_type="array" can_backup="1">
+      <default_value>a:2:{s:7:"enabled";s:1:"0";s:3:"url";s:5:"{url}";}</default_value>
+      <edit_format_params>onoff=enabled
+value=url
+type=textbox</edit_format_params>
+      <sub_options>enabled
+url</sub_options>
+      <relation group_id="associationMcOpts" display_order="110"/>
     </option>
     <option option_id="mcAssocApiEnable" edit_format="onoff" data_type="boolean" can_backup="1">
       <default_value></default_value>
@@ -107,6 +104,15 @@
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
       <relation group_id="associationMcOpts" display_order="1"/>
+    </option>
+    <option option_id="mcAssocSkinDownload" edit_format="onofftextbox" data_type="array" can_backup="1">
+      <default_value>a:2:{s:7:"enabled";s:1:"0";s:3:"url";s:5:"{url}";}</default_value>
+      <edit_format_params>onoff=enabled
+value=url
+type=textbox</edit_format_params>
+      <sub_options>enabled
+url</sub_options>
+      <relation group_id="associationMcOpts" display_order="120"/>
     </option>
     <option option_id="mcAssocStyleBoxBg" edit_format="textbox" data_type="string" can_backup="1" validation_class="AssociationMc_Validation_Options" validation_method="validateColour">
       <default_value>#fff</default_value>
@@ -166,19 +172,21 @@
     <phrase title="mc_assoc_admin_criteria_associated" version_id="9" version_string="0.8"><![CDATA[User is associated with a Minecraft account]]></phrase>
     <phrase title="mc_assoc_admin_criteria_label" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association]]></phrase>
     <phrase title="mc_assoc_admin_extra_title" global_cache="1" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Info]]></phrase>
+    <phrase title="mc_assoc_associated_accounts_below" version_id="17" version_string="1.1.3"><![CDATA[You appear to be associated with the accounts listed below. You can choose up to <strong>{maxDisplayable}</strong> to display next to your posts.]]></phrase>
+    <phrase title="mc_assoc_associate_additional" version_id="17" version_string="1.1.3"><![CDATA[If you would like to, you may associate additional Minecraft accounts in the form below.]]></phrase>
     <phrase title="mc_assoc_errors_hex_colour" version_id="0" version_string="1.0"><![CDATA[Please enter a valid colour in hexadecimal notation. Examples of acceptable values: #fff, #ffffff]]></phrase>
     <phrase title="mc_assoc_errors_hex_string" version_id="0" version_string="1.0"><![CDATA[Please specify a valid hexadecmial string with even length.]]></phrase>
     <phrase title="mc_assoc_managing_assoc" version_id="6" version_string="0.6"><![CDATA[Managing Minecraft Association]]></phrase>
+    <phrase title="mc_assoc_minecraft_account" version_id="17" version_string="1.1.3"><![CDATA[Minecraft Account]]></phrase>
     <phrase title="mc_assoc_minecraft_accounts" version_id="14" version_string="1.1"><![CDATA[Minecraft Accounts]]></phrase>
+    <phrase title="mc_assoc_not_associated" version_id="17" version_string="1.1.3"><![CDATA[You are currently not associated with a Minecraft account. To get started, fill in the form below:]]></phrase>
     <phrase title="mc_assoc_visitor_link" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association]]></phrase>
     <phrase title="option_group_associationMcOpts" version_id="15" version_string="1.1.1"><![CDATA[Minecraft Association Options]]></phrase>
     <phrase title="option_group_associationMcOpts_description" version_id="0" version_string="1.0"><![CDATA[Manages the settings used to communicate with <a href="http://mcassoc.lukegb.com/">MCAssoc</a>.]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar" version_id="14" version_string="1.1"><![CDATA[Max accounts displayable in sidebar]]></phrase>
     <phrase title="option_maxAccountsDisplaySidebar_explain" version_id="14" version_string="1.1"><![CDATA[Max number of Minecraft accounts the user can elect to display in the sidebar next to their posts and private messages.]]></phrase>
-    <phrase title="option_mcAssocAddInfoEnable" version_id="17" version_string="1.1.3"><![CDATA[Enable Additional Information URL]]></phrase>
-    <phrase title="option_mcAssocAddInfoEnable_explain" version_id="17" version_string="1.1.3"><![CDATA[Enable to have association listings have the below link.]]></phrase>
-    <phrase title="option_mcAssocAddInfoUrl" version_id="17" version_string="1.1.3"><![CDATA[Additional Information URL]]></phrase>
-    <phrase title="option_mcAssocAddInfoUrl_explain" version_id="17" version_string="1.1.3"><![CDATA[Defines if a link should be added to association lists.<br />%name - Minecraft Username &mdash; %uuid - Minecraft UUID]]></phrase>
+    <phrase title="option_mcAssocAddInfo" version_id="17" version_string="1.1.3"><![CDATA[Additional Information URL]]></phrase>
+    <phrase title="option_mcAssocAddInfo_explain" version_id="17" version_string="1.1.3"><![CDATA[Tick the box to enable adding an additional information URL then place the URL in the textbox.<br />%name - Minecraft Username &mdash; %uuid - Minecraft UUID]]></phrase>
     <phrase title="option_mcAssocApiEnable" version_id="7" version_string="0.6.1"><![CDATA[Enable API]]></phrase>
     <phrase title="option_mcAssocApiEnable_explain" version_id="7" version_string="0.6.1"><![CDATA[Whether or not you wish to enable the JSON-based AssociationMc API.]]></phrase>
     <phrase title="option_mcAssocApiToken" version_id="7" version_string="0.6.1"><![CDATA[API Token]]></phrase>
@@ -194,6 +202,8 @@ Running in insecure mode disables all signature verification, people will be abl
     <phrase title="option_mcAssocSharedSecret_explain" version_id="9" version_string="0.8"><![CDATA[This is shared between you and MCAssoc. You can easily generate a shared secret by supplying your domain <a href="https://mcassoc.lukegb.com">here</a>.]]></phrase>
     <phrase title="option_mcAssocSiteId" version_id="0" version_string="1.0"><![CDATA[Site ID]]></phrase>
     <phrase title="option_mcAssocSiteId_explain" version_id="9" version_string="0.8"><![CDATA[Publicly displayed site id. If this isn't set, you'll get a "required parameter(s) missing" error.]]></phrase>
+    <phrase title="option_mcAssocSkinDownload" version_id="17" version_string="1.1.3"><![CDATA[Skin Download]]></phrase>
+    <phrase title="option_mcAssocSkinDownload_explain" version_id="17" version_string="1.1.3"><![CDATA[Tick the box to enable adding a skin download URL on AssociationMc's member tab then place the URL in the textbox.<br />%name - Minecraft Username &mdash; %uuid - Minecraft UUID]]></phrase>
     <phrase title="option_mcAssocStyleBoxBg" version_id="0" version_string="1.0"><![CDATA[Box background colour]]></phrase>
     <phrase title="option_mcAssocStyleBoxBg_explain" version_id="0" version_string="1.0"><![CDATA[See <a href="https://github.com/lol768/XenForo-MCASSOC/blob/master/STYLEREF.md">this</a> page for a reference. Your value should consist of a hexadecimal colour string, e.g. #efefef]]></phrase>
     <phrase title="option_mcAssocStyleBoxFg" version_id="0" version_string="1.0"><![CDATA[Box foreground colour]]></phrase>
@@ -272,21 +282,29 @@ var MCAssoc=function(){var e={baseurl:"https://mcassoc.lukegb.com/"};var t;e.ini
 	<xen:foreach loop="{$mcEntries}" value="$entry">
 <li class="primaryContent memberListItem{xen:if $extended, ' extended'}">
 
-        <xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}
+        <xen:if is="{$addInfo.enabled}">
+        <a href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}" class="avatar" target="_blank"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a>
+        <xen:else />
         <a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a>
-        </a><xen:else/><a class="avatar"><span class="img s" style="background-image: url('{xen:helper headimage, $entry.minecraft_uuid, 48}')"></span></a></xen:if>
+        </xen:if>
 
 	<div class="member">
 	
 		<xen:if is="{$entry.minecraft_uuid}">
 		
-			<h3 class="mcusername"><xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if><span class="style1">{$entry.last_username}</span>
-			<xen:if is="{$addInfo}"></a></xen:if></h3>
+			<h3 class="mcusername">
+			<xen:if is="{$addInfo.enabled}">
+			<a href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}" target="_blank"><span class="style1">{$entry.last_username}</span></a>
+			<xen:else />
+			<span class="style1">{$entry.last_username}</span>
+			</xen:if>
+			
+			</h3>
 		
 			<div class="userInfo">
-				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> Minecraft Account</span></div>
+				<div class="userBlurb dimmed"><span class="userTitle" itemprop="title"> {xen:phrase mc_assoc_minecraft_account}</span></div>
 				<dl class="userStats pairsInline">
-					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | <a target="_blank" href="//namemc.com/profile/{$entry.minecraft_uuid}">NameMC</a> | <a target="_blank" href="//plancke.io/hypixel/player/stats/{$entry.last_username}">Hypixel Statistics</a> | <a target="_blank" href="http:////minecraft.tools/download-skin/{$entry.last_username}">Download Skin</a></dd>
+					<dt title="Minecraft UUID">UUID:</dt> <dd><span id="{$entry.last_username}">{$entry.minecraft_uuid}</span> (<a onclick="copyToClipboard('#{$entry.last_username}')" href="javascript:void(0);">Copy</a>) | {xen:if '{$addInfo.enabled}', '| <a target="_blank" href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}">Additional Information</a>'} {xen:if '{$skinDownload.enabled}', '| <a target="_blank" href="{xen:helper additionalinfo, $skinDownload.url, $entry.last_username, $entry.minecraft_uuid}" download>Download Skin</a>'}</dd>
 				</dl>
 			</div>
 			
@@ -362,9 +380,15 @@ img.mcAccAvatarLarger {
     <template title="association_thread_post" version_id="17" version_string="1.1.3"><![CDATA[<xen:require css="association_styling.css" />
 <xen:if is="{$mcNames.{$user.user_id}}!=null">
 <div class="mcAccInfoBlock">
-<span class="mcAccHeading">Minecraft Accounts:</span>
-<xen:foreach loop="{$mcEntries}" value="$entry">
-<span class="mcAccText"><xen:if is="{$addInfo}">{xen:helper additionalinfo, $entry.last_username, $entry.minecraft_uuid}</xen:if><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}<xen:if is="{$addInfo}"></a></xen:if></span>
+<span class="mcAccHeading">{xen:phrase mc_assoc_minecraft_accounts}:</span>
+<xen:foreach loop="{$mcNames.{$user.user_id}}" value="$entry">
+<span class="mcAccText">
+<xen:if is="{$addInfo.enabled}">
+<a href="{xen:helper additionalinfo, $addInfo.url, $entry.last_username, $entry.minecraft_uuid}" target="_blank"><img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}</a>
+<xen:else />
+<img src="{xen:helper headimage, $entry.minecraft_uuid, 11}" class="mcAccAvatar"></img> {$entry.last_username}
+</xen:if>
+</span>
 </xen:foreach>
 </div>
 </xen:if>]]></template>
@@ -373,13 +397,13 @@ img.mcAccAvatarLarger {
 <xen:if is="{$associated} != true">
     <div class="section">
         <div class="primaryContent">
-            <p>You are currently not associated with a Minecraft account. To get started, fill in the form below:</p>
+            <p>{xen:phrase mc_assoc_not_associated}</p>
         </div>
     </div>
 <xen:else />
     <div class="section">
         <div class="baseHtml">
-            <p>You appear to be associated with the accounts listed below. You can choose up to <strong>{$maxDisplayable}</strong> to display next to your posts.</p>
+            <p>{xen:phrase mc_assoc_associated_accounts_below, 'maxDisplayable={$maxDisplayable}'}</p>
             <noscript>You need JS to choose which accounts should show up</noscript>
             <xen:if is="{$entries}">
             <xen:foreach loop="$entries" value="$model">
@@ -392,7 +416,7 @@ img.mcAccAvatarLarger {
             </form>
             <label><input type="checkbox" data-id="{$model.association_id}" class="visibilityToggle" <xen:if is="{$model.display_by_posts}">checked</xen:if>> Display Next to Posts</label>
             </xen:foreach></xen:if>
-            <p>If you would like to, you may associate additional Minecraft accounts in the form below.
+            <p>{xen:phrase mc_assoc_associate_additional}
         </div>
     </div>
 
@@ -422,9 +446,21 @@ img.mcAccAvatarLarger {
                     </xen:foreach>
 		</div>
 	</div>
+	<div class="section">
+		<div class="secondaryContent">
+                    <h3>Find Associations</h3>
+			<form action="{xen:link mc-association/search}" method="post" class="secondaryContent">
+			<input type="search" name="username" id="username" placeholder="{xen:phrase name}..." class="textCtrl" data-autoSubmit="true" />
+			<input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
+		</form>
+		</div>
+	</div>
 </xen:sidebar>]]></template>
     <template title="association_visitor_left" version_id="9" version_string="0.8"><![CDATA[<li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></template>
-    <template title="association_visitor_right" version_id="9" version_string="0.8"><![CDATA[<!-- MCAssoc: feel free to move the link here if you prefer -->]]></template>
+    <template title="association_visitor_right" version_id="17" version_string="1.1.3"><![CDATA[<xen:comment>
+If you prefer to have the AssociationMc navigation link appear to the right instead or with of the left, move the contents of
+the template "association_visitor_left" here and remove or replace the contents of "association_visitor_left" after doing so.
+</xen:comment>]]></template>
   </templates>
   <public_template_modifications>
     <modification template="message_user_info" modification_key="add_mc_names_to_thread" description="Adds mcNames variable to template hook for thread" execution_order="10" enabled="1" action="str_replace">

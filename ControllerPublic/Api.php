@@ -11,7 +11,7 @@ class AssociationMc_ControllerPublic_Api extends XenForo_ControllerPublic_Abstra
     public function _preDispatch($action) {
         parent::_preDispatch($action);
         $this->_routeMatch->setResponseType('json');
-	if (!$_SERVER['HTTP_USER_AGENT']) {
+	if (empty(@$_SERVER['HTTP_USER_AGENT'])) {
 		throw new XenForo_Exception('User-Agent Required', true);
 	}
         $opts = XenForo_Application::get('options');

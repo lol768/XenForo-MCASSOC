@@ -12,4 +12,4 @@
 
 ![Dark](https://i.imgur.com/gTxnQn7.png)
 
-![Profile Tab](https://i.imgur.com/I1U4sR9.png)
+![Profile Tab Content](https://i.imgur.com/uHwcsGd.png)
