@@ -446,6 +446,15 @@ img.mcAccAvatarLarger {
                     </xen:foreach>
 		</div>
 	</div>
+	<div class="section">
+		<div class="secondaryContent">
+                    <h3>Find Associations</h3>
+			<form action="{xen:link mc-association/search}" method="post" class="secondaryContent">
+			<input type="search" name="username" id="username" placeholder="{xen:phrase name}..." class="textCtrl" data-autoSubmit="true" />
+			<input type="hidden" name="_xfToken" value="{$visitor.csrf_token_page}" />
+		</form>
+		</div>
+	</div>
 </xen:sidebar>]]></template>
     <template title="association_visitor_left" version_id="9" version_string="0.8"><![CDATA[<li><a href="{xen:link mc-association/view}">{xen:phrase mc_assoc_visitor_link}</a></li>]]></template>
     <template title="association_visitor_right" version_id="17" version_string="1.1.3"><![CDATA[<xen:comment>
